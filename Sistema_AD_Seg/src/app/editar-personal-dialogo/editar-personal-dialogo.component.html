@@ -1,0 +1,68 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+
+<div class="modal-header">
+  <h4 class="modal-title">Editar Personal</h4>
+  <button type="button" class="close custom-close-button" aria-label="Close" (click)="modalRef.dismiss()">
+    <i class="fas fa-times-circle" aria-hidden="true"></i>
+  </button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <div class="form-row">
+      <div class="form-group col">
+        <label for="nombre">Nombre<span class="text-danger"> :</span></label>
+        <input type="text" id="nombre" formControlName="nombre" placeholder="Ingrese nombre" class="form-control">
+        <div *ngIf="form.controls['nombre'].invalid && (form.controls['nombre'].dirty || form.controls['nombre'].touched)" class="text-danger">
+          <div *ngIf="form.controls['nombre'].errors?.['required']">Nombre es obligatorio</div>
+        </div>
+      </div>
+      <div class="form-group col">
+        <label for="apellido">Apellidos<span class="text-danger"> :</span></label>
+        <input type="text" id="apellido" formControlName="apellido" placeholder="Ingrese apellidos" class="form-control">
+        <div *ngIf="form.controls['apellido'].invalid && (form.controls['apellido'].dirty || form.controls['apellido'].touched)" class="text-danger">
+          <div *ngIf="form.controls['apellido'].errors?.['required']">Apellido es obligatorio</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="cedula">Cédula<span class="text-danger"> :</span></label>
+        <input type="text" id="cedula" formControlName="cedula" class="form-control" placeholder="ID / Pasaporte" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="sexo">Sexo<span class="text-danger"> :</span></label>
+        <select id="sexo" formControlName="sexo" class="form-control" required>
+          <option value="">Seleccione</option>
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="perfil">Perfil<span class="text-danger"> :</span></label>
+        <select id="perfil" formControlName="perfil" class="form-control" required>
+          <option value="" disabled>Seleccione</option>
+          <option value="Seguridad">Seguridad</option>
+          <option value="Administracion">Administración</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="celular">Celular<span class="text-danger"> :</span></label>
+        <input type="text" id="celular" formControlName="celular" class="form-control" placeholder="+593" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="correo_electronico">Email<span class="text-danger"> :</span></label>
+        <input type="email" id="correo_electronico" formControlName="correo_electronico" class="form-control" placeholder="ejemplo@email.com">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="observaciones">Observaciones<span class="text-danger">*</span></label>
+        <textarea id="observaciones" formControlName="observaciones" class="form-control" rows="3"></textarea>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </form>
+</div>

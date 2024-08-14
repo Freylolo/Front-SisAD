@@ -1,0 +1,142 @@
+<div class="modal-header">
+  <h4 class="modal-title">Editar Residente</h4>
+  <button type="button" class="close custom-close-button" aria-label="Close" (click)="modalRef.dismiss()">
+    <i class="fas fa-times-circle" aria-hidden="true"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <!-- Información Personal -->
+    <div class="row">
+      <div class="form-group col">
+        <label for="nombre">Nombre<span class="text-danger"> :</span></label>
+        <input type="text" id="nombre" formControlName="nombre" placeholder="Ingrese nombre" class="form-control">
+        <div *ngIf="form.controls['nombre'].invalid && (form.controls['nombre'].dirty || form.controls['nombre'].touched)" class="text-danger">
+          <div *ngIf="form.controls['nombre'].errors?.['required']">Nombre es obligatorio</div>
+        </div>
+      </div>
+      <div class="form-group col">
+        <label for="apellido">Apellidos<span class="text-danger"> :</span></label>
+        <input type="text" id="apellido" formControlName="apellido" placeholder="Ingrese apellidos" class="form-control">
+        <div *ngIf="form.controls['apellido'].invalid && (form.controls['apellido'].dirty || form.controls['apellido'].touched)" class="text-danger">
+          <div *ngIf="form.controls['apellido'].errors?.['required']">Apellido es obligatorio</div>
+        </div>
+      </div>       
+    </div>
+    <div class="row">
+      <div class="form-group col">
+        <label for="cedula">Cédula<span class="text-danger"> :</span></label>
+        <input type="text" id="cedula" formControlName="cedula" placeholder="ID / Pasaporte" class="form-control">
+        <div *ngIf="form.controls['cedula'].invalid && (form.controls['cedula'].dirty || form.controls['cedula'].touched)" class="text-danger">
+          <div *ngIf="form.controls['cedula'].errors?.['required']">Cédula es obligatoria</div>
+        </div>
+      </div>
+      <div class="form-group col">
+        <label for="sexo">Sexo<span class="text-danger"> :</span></label>
+        <select id="sexo" formControlName="sexo" class="form-control">
+          <option value="">Seleccione</option>
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+        </select>
+        <div *ngIf="form.controls['sexo'].invalid && (form.controls['sexo'].dirty || form.controls['sexo'].touched)" class="text-danger">
+          <div *ngIf="form.controls['sexo'].errors?.['required']">Sexo es obligatorio</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col">
+        <label for="perfil">Perfil<span class="text-danger"> :</span></label>
+        <select id="perfil" formControlName="perfil" class="form-control">
+          <option value="" disabled>Seleccione</option>
+          <option value="Residente">Residente</option>
+          <option value="Propietario">Propietario</option>
+        </select>
+        <div *ngIf="form.controls['perfil'].invalid && (form.controls['perfil'].dirty || form.controls['perfil'].touched)" class="text-danger">
+          <div *ngIf="form.controls['perfil'].errors?.['required']">Perfil es obligatorio</div>
+        </div>
+      </div>
+      <div class="form-group col">
+        <label for="celular">Celular<span class="text-danger"> :</span></label>
+        <input type="text" id="celular" formControlName="celular" placeholder="+593" class="form-control">
+        <div *ngIf="form.controls['celular'].invalid && (form.controls['celular'].dirty || form.controls['celular'].touched)" class="text-danger">
+          <div *ngIf="form.controls['celular'].errors?.['required']">Celular es obligatorio</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col">
+        <label for="correo_electronico">Email<span class="text-danger"> :</span></label>
+        <input type="email" id="correo_electronico" formControlName="correo_electronico" placeholder="ejemplo@email.com" class="form-control">
+      </div>
+      <div class="form-group col">
+        <label for="direccion">Dirección<span class="text-danger"> :</span></label>
+        <input type="text" id="direccion" formControlName="direccion" placeholder="Mz / V" class="form-control">
+      </div>
+    </div>
+
+    <!-- Información Vehicular -->
+    <h5>Información Vehicular:</h5>
+    <div class="row">
+      <div class="form-group col">
+        <label for="cantidad_vehiculos">Cantidad de Vehículos<span class="text-danger"> :</span></label>
+        <input type="number" id="cantidad_vehiculos" formControlName="cantidad_vehiculos" class="form-control">
+      </div>
+      <div class="form-group col">
+        <label for="vehiculo1_placa">Placas<span class="text-danger"> :</span></label>
+        <input type="text" id="vehiculo1_placa" formControlName="vehiculo1_placa" class="form-control">
+        <br>
+        <input type="text" id="vehiculo2_placa" formControlName="vehiculo2_placa" placeholder="Opcional" class="form-control">
+        <br>
+        <input type="text" id="vehiculo3_placa" formControlName="vehiculo3_placa" placeholder="Opcional" class="form-control">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col">
+        <label for="vehiculo1_observaciones">Observaciones del vehículo 1<span class="text-danger"> :</span></label>
+        <textarea id="vehiculo1_observaciones" formControlName="vehiculo1_observaciones" rows="2" class="form-control"></textarea>
+      </div>
+      <div class="form-group col">
+        <label for="vehiculo2_observaciones">Observaciones del vehículo 2<span class="text-danger"> :</span></label>
+        <textarea id="vehiculo2_observaciones" formControlName="vehiculo2_observaciones" rows="2" class="form-control"></textarea>
+      </div>
+      <div class="form-group col">
+        <label for="vehiculo3_observaciones">Observaciones del vehículo 3<span class="text-danger"> :</span></label>
+        <textarea id="vehiculo3_observaciones" formControlName="vehiculo3_observaciones" rows="2" class="form-control"></textarea>
+      </div>
+    </div>
+
+    <!-- Información de Propiedad -->
+    <h5>Información De Propiedad:</h5>
+    <div class="row">
+      <div class="form-group col">
+        <label for="solar">Solar<span class="text-danger"> :</span></label>
+        <input type="text" id="solar" formControlName="solar" placeholder="Ingrese número de solar" class="form-control">
+        <div *ngIf="form.controls['solar'].invalid && (form.controls['solar'].dirty || form.controls['solar'].touched)" class="text-danger">
+          <div *ngIf="form.controls['solar'].errors?.['required']">Solar es obligatorio</div>
+        </div>
+      </div>
+      <div class="form-group col">
+        <label for="m2">M2<span class="text-danger"> :</span></label>
+        <input type="number" id="m2" formControlName="m2" placeholder="M2 Terreno" class="form-control">
+        <div *ngIf="form.controls['m2'].invalid && (form.controls['m2'].dirty || form.controls['m2'].touched)" class="text-danger">
+          <div *ngIf="form.controls['m2'].errors?.['required']">M2 es obligatorio</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Información Adicional -->
+    <h5>Información Adicional:</h5>
+    <div class="row">
+      <div class="form-group col">
+        <label for="observaciones">Observaciones:</label>
+        <textarea id="observaciones" formControlName="observaciones" rows="2" class="form-control"></textarea>
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Guardar</button>
+      <button type="button" class="btn btn-secondary" (click)="modalRef.dismiss()">Cancelar</button>
+    </div>
+  </form>
+</div>

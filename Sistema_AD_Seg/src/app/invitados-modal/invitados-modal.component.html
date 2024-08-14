@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <h4 class="modal-title">Información de Invitados</h4>
+</div>
+<div class="modal-body">
+  <div *ngIf="data && data.length > 0">
+    <h5>Invitados:</h5>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Cédula</th>
+          <th>Placa</th>
+          <th>Fecha Evento:</th>
+          <th>Hora:</th>
+          <th>Observaciones</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let invitado of data">
+          <td>{{ invitado.nombres }}</td>
+          <td>{{ invitado.apellidos }}</td>
+          <td>{{ invitado.cedula }}</td>
+          <td>{{ invitado.placa }}</td>
+          <td>{{ invitado.fecha_evento }}</td>
+          <td>{{ invitado.hora_evento }}</td>
+          <td>{{ invitado.observaciones }}</td>
+          <td [ngClass]="{'text-blue': invitado.estado === 'Sin ingreso', 'text-green': invitado.estado === 'Ingresado'}">
+            {{ invitado.estado }}
+          </td>          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="!data || data.length === 0">
+    <p>Cargando información...</p>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger" (click)="closeModal()">Cerrar</button>
+</div>

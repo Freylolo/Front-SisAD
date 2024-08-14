@@ -1,0 +1,107 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<div class="aw">
+   <input type="checkbox" id="toggler" />
+   <aside class="aside-wrapper" >
+      <h1 class="logo-text"><span>Menú</span> 
+         <label for="toggler"><i class="fas fa-bars sidebar-toggle"></i></label>
+      </h1>
+      <ul>
+         <li>
+            <i class="fa fa-briefcase"></i> Administración 
+            <ul class="sub-menu">
+               <li href="#"><i class="fas fa-user"></i> <a href="gestionusuario">Gestion de Usuarios</a></li>
+               <li href="#"><i class="fas fa-sack-dollar"></i> <a href="alicuotas"> Alicuotas</a></li>
+               <li><i class="fas fa-user-plus"></i> <a href="registro-personal">Personal</a></li>
+               <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+            </ul>
+         </li>
+         <li>
+            <i class="fa fa-calendar-alt"></i> Eventos
+            <ul class="sub-menu">
+               <li><i class="fas fa-history"></i><a href="eventos">Eventos</a></li>
+               <li><i class="fas fa-edit"></i><a href="registro-evento">Registro de Eventos</a></li>
+               <li><i class="fas fa-user-check"></i><a href="registro-visitantes">Registro de Visitantes</a></li>
+            </ul>
+         </li>
+         <li>
+            <i class="fa fa-shield"></i> Seguridad
+            <ul class="sub-menu">
+               <li><i class="fas fa-car"></i> <a href="registro-control">Control de acceso</a></li>
+               <li><i class="fas fa-address-book"></i> <a href="formulario-control">Registro de acceso</a></li>
+               <li><i class="fas fa-expand"></i> <a href="lector-qr">Lector QR</a></li>
+               <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+            </ul>
+         </li> 
+         <li>
+            <i class="fa fa-paper-plane"></i> Notificaciones 
+            <ul class="sub-menu">
+               <li><i class="fas fa-paper-plane"></i> <a href="notificaciones">Notificaciones</a></li>
+            </ul>
+         </li>
+      </ul>
+   </aside>
+</div>
+<nav class="navbar" id="nav-bar">
+   <div class="navbar-center">
+      <img src="./assets/logo_caminoreal.png" width="50" height="50">
+      <h4>Camino Real Urbanizacion</h4>
+    </div>
+   <div class="navbar-right" >
+      <div class="dropdown">
+         <button class="dropbtn"><img src="./assets/users.png" width="35" height="40"></button>
+         <span>Hola , {{ username }}</span>
+         <div class="dropdown-content-lg"><br>
+            <button class="btn-danger" (click)="logout()" ><i class="fa fa-sign-out"></i>Cerrar Sesión</button>
+         </div>
+      </div>
+   </div>
+</nav>
+<h2><b>Registros de Personal :</b></h2>
+<!-- Campo de búsqueda -->
+<input class="form-control" type="search" placeholder="Buscar.." [(ngModel)]="filtro">
+<!-- Botón para exportar a Excel -->
+<button class="btn-excel" (click)="exportarExcel()">
+<img src="./assets/excel.png" width="40" height="45" alt="Exportar a Excel">
+</button>
+<!-- Enlace para crear nuevo personal -->
+<a href="formulario-personal" class="btn-add">Agregar</a>
+<div class="contenido">
+   <!-- Tabla para mostrar el personal -->
+   <table  mat-table id="Personal">
+      <thead>
+         <tr>
+            <th>Nombres</th>
+            <th>Sexo</th>
+            <th>Cédula</th>
+            <th>Perfil</th>
+            <th>Celular</th>
+            <th>Correo</th>
+            <th>Observaciones</th>
+            <th>Acciones</th>
+         </tr>
+      </thead>
+      <!-- Filtro aplicado para mostrar los datos -->
+      <tbody id="Personal">
+         <tr *ngFor="let row of (filtrar() | paginate: { itemsPerPage: 5, currentPage: p })">
+            <td>{{ row.usuario.nombre }} {{ row.usuario.apellido }}</td>
+            <td>{{row.sexo}}</td>
+            <td>{{row.cedula}}</td>
+            <td>{{row.perfil}}</td>
+            <td>{{row.celular}}</td>
+            <td>{{row.correo_electronico}}</td>
+            <td>{{row.observaciones}}</td>
+            <td>
+               <!-- Botones para editar y eliminar -->
+               <button class="btn-edit" (click)="editPersonal(row.id_personal)">
+               <i class="fas fa-edit"></i>
+               </button>
+               <button class="btn-trash" (click)="deletePersonal(row.id_personal)">
+               <i class="fas fa-trash"></i> 
+               </button>
+            </td>
+         </tr>
+      </tbody>
+   </table>
+   <!-- Controles de paginación -->
+   <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+</div>

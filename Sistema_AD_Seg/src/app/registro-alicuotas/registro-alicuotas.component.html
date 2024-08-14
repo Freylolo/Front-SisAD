@@ -1,0 +1,108 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<div class="aw">
+  <input type="checkbox" id="toggler" />
+  <aside class="aside-wrapper" >
+    <h1 class="logo-text"><span>Menú</span> 
+      <label for="toggler"><i class="fas fa-bars sidebar-toggle"></i></label>
+    </h1>
+    <ul>
+      <li>
+        <i class="fa fa-briefcase"></i> Administración 
+        <ul class="sub-menu">
+          <li href="#"><i class="fas fa-user"></i> <a href="gestionusuario">Gestion de Usuarios</a></li>
+          <li href="#"><i class="fas fa-sack-dollar"></i> <a href="alicuotas"> Alicuotas</a></li>
+          <li><i class="fas fa-user-plus"></i> <a href="registro-personal">Personal</a></li>
+          <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-calendar-alt"></i> Eventos
+        <ul class="sub-menu">
+          <li><i class="fas fa-history"></i><a href="eventos">Eventos</a></li>
+          <li><i class="fas fa-edit"></i><a href="registro-evento">Registro de Eventos</a></li>
+          <li><i class="fas fa-user-check"></i><a href="registro-visitantes">Registro de Visitantes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-shield"></i> Seguridad
+        <ul class="sub-menu">
+          <li><i class="fas fa-car"></i> <a href="registro-control">Control de acceso</a></li>
+          <li><i class="fas fa-address-book"></i> <a href="formulario-control">Registro de acceso</a></li>
+          <li><i class="fas fa-expand"></i> <a href="lector-qr">Lector QR</a></li>
+          <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-paper-plane"></i> Notificaciones 
+        <ul class="sub-menu">
+          <li><i class="fas fa-paper-plane"></i> <a href="notificaciones">Notificaciones</a></li>
+        </ul>
+      </li>
+    </ul>
+  </aside>
+</div>
+<nav class="navbar" id="nav-bar">
+  <div class="navbar-center">
+    <img src="./assets/logo_caminoreal.png" width="50" height="50">
+    <h4>Camino Real Urbanizacion</h4>
+  </div>
+  <div class="navbar-right">
+    <div class="dropdown">
+      <button class="dropbtn"><img src="./assets/users.png" width="35" height="40"></button>
+      <span>Hola , {{ username }}</span>
+      <div class="dropdown-content-lg"><br>
+        <button class="btn-danger" (click)="logout()"><i class="fa fa-sign-out"></i>Cerrar Sesión</button>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="formulario">
+  <h2>Registro de Alicuotas Mensuales: </h2>
+  <div class="container">
+    <form class="form" (ngSubmit)="guardar()" #alicuotaForm="ngForm">
+      <div class="row">
+        <div class="form-group col">
+          <label for="id_residente">Residente<span class="text-danger"> :</span></label>
+          <select id="id_residente" name="id_residente" [(ngModel)]="nuevoAlicuota.id_residente" required>
+            <option *ngFor="let residente of residentes" [value]="residente.id_residente">
+              {{ residente.nombre }} {{ residente.apellido }}
+            </option>
+          </select>
+        </div>      
+      </div>
+      <div class="row">
+        <div class="form-group col">
+          <label for="fechalicuota">Fecha<span class="text-danger"> :</span></label>
+          <input type="date" id="fechalicuota" name="fecha" [(ngModel)]="nuevoAlicuota.fecha" (change)="onDateChange($event)" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col">
+          <label for="mesalicuota">Mes<span class="text-danger"> :</span></label>
+          <select id="mesalicuota" name="mes" [(ngModel)]="nuevoAlicuota.mes" required>
+            <option value="" disabled selected>Seleccione</option>
+            <option value="Enero">Enero</option>
+            <option value="Febrero">Febrero</option>
+            <option value="Marzo">Marzo</option>
+            <option value="Abril">Abril</option>
+            <option value="Mayo">Mayo</option>
+            <option value="Junio">Junio</option>
+            <option value="Julio">Julio</option>
+            <option value="Agosto">Agosto</option>
+            <option value="Septiembre">Septiembre</option>
+            <option value="Octubre">Octubre</option>
+            <option value="Noviembre">Noviembre</option>
+            <option value="Diciembre">Diciembre</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col">
+          <label for="mpcobrar">Monto Por cobrar<span class="text-danger"> :</span></label>
+          <input type="number" id="mpcobrar" name="monto_por_cobrar" [(ngModel)]="nuevoAlicuota.monto_por_cobrar" placeholder="Ingrese monto $" required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+  </div>
+</div>

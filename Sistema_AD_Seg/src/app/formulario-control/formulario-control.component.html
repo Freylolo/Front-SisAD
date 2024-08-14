@@ -1,0 +1,132 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<div class="aw">
+  <input type="checkbox" id="toggler" />
+  <aside class="aside-wrapper" >
+    <h1 class="logo-text"><span>Menú</span> 
+      <label for="toggler"><i class="fas fa-bars sidebar-toggle"></i></label>
+    </h1>
+    <ul>
+      <li>
+        <i class="fa fa-briefcase"></i> Administración 
+        <ul class="sub-menu">
+          <li href="#"><i class="fas fa-user"></i> <a href="gestionusuario">Gestion de Usuarios</a></li>
+          <li href="#"><i class="fas fa-sack-dollar"></i> <a href="alicuotas"> Alicuotas</a></li>
+          <li><i class="fas fa-user-plus"></i> <a href="registro-personal">Personal</a></li>
+          <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-calendar-alt"></i> Eventos
+        <ul class="sub-menu">
+          <li><i class="fas fa-history"></i><a href="eventos">Eventos</a></li>
+          <li><i class="fas fa-edit"></i><a href="registro-evento">Registro de Eventos</a></li>
+          <li><i class="fas fa-user-check"></i><a href="registro-visitantes">Registro de Visitantes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-shield"></i> Seguridad
+        <ul class="sub-menu">
+          <li><i class="fas fa-car"></i> <a href="registro-control">Control de acceso</a></li>
+          <li><i class="fas fa-address-book"></i> <a href="formulario-control">Registro de acceso</a></li>
+          <li><i class="fas fa-expand"></i> <a href="lector-qr">Lector QR</a></li>
+          <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-paper-plane"></i> Notificaciones 
+        <ul class="sub-menu">
+          <li><i class="fas fa-paper-plane"></i> <a href="notificaciones">Notificaciones</a></li>
+        </ul>
+      </li>
+    </ul>
+  </aside>
+</div>
+<nav class="navbar" id="nav-bar">
+  <div class="navbar-center">
+    <img src="./assets/logo_caminoreal.png" width="50" height="50">
+    <h4>Camino Real Urbanizacion</h4>
+  </div>
+  <div class="navbar-right">
+    <div class="dropdown">
+      <button class="dropbtn"><img src="./assets/users.png" width="35" height="40"></button>
+      <span>Hola , {{ username }}</span>
+      <div class="dropdown-content-lg"><br>
+        <button class="btn-danger" (click)="logout()"><i class="fa fa-sign-out"></i>Cerrar Sesión</button>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="formulario">
+  <h2>Registro de control de acceso:</h2>
+  <div class="container">
+    <form class="form" (ngSubmit)="guardar()" #controlForm="ngForm">
+      <div class="row">
+        <div class="form-group col">
+          <label for="nombre">Nombre<span class="text-danger"> :</span></label>
+          <input type="text" id="nombre" name="nombre" placeholder="Ingrese nombre" required [(ngModel)]="nuevoControl.nombre">
+        </div>
+        <div class="form-group col">
+          <label for="apellido">Apellidos<span class="text-danger"> :</span></label>
+          <input type="text" id="apellido" name="apellido" placeholder="Ingrese apellidos" required [(ngModel)]="nuevoControl.apellidos">
+        </div>
+        <div class="form-group col">
+          <label for="identificacion">Cédula<span class="text-danger"> :</span></label>
+          <input type="text" id="identificacion" name="identificacion" placeholder="ID / Pasaporte" required [(ngModel)]="nuevoControl.cedula">
+        </div>
+        <div class="form-group col">
+          <label for="sexo">Sexo<span class="text-danger"> :</span></label>
+          <select id="sexo" name="sexo" required [(ngModel)]="nuevoControl.sexo">
+            <option value="">Seleccione</option>
+            <option value="M">Masculino</option>
+            <option value="F">Femenino</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col">
+          <label for="placas">Placas<span class="text-danger"> :</span></label>
+          <input type="text" id="placas" name="placas" placeholder="" [(ngModel)]="nuevoControl.placas" (change)="onPlacaChange($event)">
+        </div>
+        <div class="form-group col">
+          <label for="direccion">Dirección<span class="text-danger"> :</span></label>
+          <input type="text" id="direccion" name="direccion" placeholder="Mz / V" [(ngModel)]="nuevoControl.direccion">
+        </div>
+        <div class="form-group col">
+          <label for="ingresante">Ingresante<span class="text-danger"> :</span></label>
+          <select id="ingresante" name="ingresante" [(ngModel)]="nuevoControl.ingresante">
+            <option value="" disabled>Seleccione</option>
+            <option value="Residente">Residente</option>
+            <option value="Visitante">Visitante</option>
+            <option value="Delivery">Delivery</option>
+          </select>
+        </div>        
+      </div>
+      <div class="row">
+        <div class="form-group col">
+          <label for="fechaingreso">Fecha de Ingreso:<span class="text-danger"> :</span></label>
+          <input type="datetime-local" id="fechaingreso" name="fecha_ingreso" [(ngModel)]="nuevoControl.fecha_ingreso">
+        </div>
+        <div class="form-group col">
+          <label for="fechasalida">Fecha de Salida:<span class="text-danger"> :</span></label>
+          <input type="datetime-local" id="fechasalida" name="fecha_salida" [(ngModel)]="nuevoControl.fecha_salida">
+        </div>
+        <div class="form-group col-span-6">
+          <label for="observaciones">Observaciones<span class="text-danger">*</span></label>
+          <textarea id="observaciones" name="observaciones" rows="3" [(ngModel)]="nuevoControl.observaciones"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col">
+          <label for="turno">Personal de Turno:<span class="text-danger"> :</span></label>
+          <select id="usuario" [(ngModel)]="nuevoControl.id_usuario" name="usuario" (change)="GuardarUsername($event)">
+            <option *ngFor="let usuario of usuariosSeguridad" [value]="usuario.id_usuario">
+              {{ usuario.username }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </form>
+    <button type="submit" class="btn btn-primary" (click)="guardar()">Guardar</button>
+    <a href="lector-qr" class="btn btn-info">Leer QR</a>
+  </div>
+</div>

@@ -1,0 +1,102 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<div class="aw">
+  <input type="checkbox" id="toggler" />
+  <aside class="aside-wrapper" >
+    <h1 class="logo-text"><span>Menú</span> 
+      <label for="toggler"><i class="fas fa-bars sidebar-toggle"></i></label>
+    </h1>
+    <ul>
+      <li>
+        <i class="fa fa-briefcase"></i> Administración 
+        <ul class="sub-menu">
+          <li href="#"><i class="fas fa-user"></i> <a href="gestionusuario">Gestion de Usuarios</a></li>
+          <li href="#"><i class="fas fa-sack-dollar"></i> <a href="alicuotas"> Alicuotas</a></li>
+          <li><i class="fas fa-user-plus"></i> <a href="registro-personal">Personal</a></li>
+          <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-calendar-alt"></i> Eventos
+        <ul class="sub-menu">
+          <li><i class="fas fa-history"></i><a href="eventos">Eventos</a></li>
+          <li><i class="fas fa-edit"></i><a href="registro-evento">Registro de Eventos</a></li>
+          <li><i class="fas fa-user-check"></i><a href="registro-visitantes">Registro de Visitantes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-shield"></i> Seguridad
+        <ul class="sub-menu">
+          <li><i class="fas fa-car"></i> <a href="registro-control">Control de acceso</a></li>
+          <li><i class="fas fa-address-book"></i> <a href="formulario-control">Registro de acceso</a></li>
+          <li><i class="fas fa-expand"></i> <a href="lector-qr">Lector QR</a></li>
+          <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-paper-plane"></i> Notificaciones 
+        <ul class="sub-menu">
+          <li><i class="fas fa-paper-plane"></i> <a href="notificaciones">Notificaciones</a></li>
+        </ul>
+      </li>
+    </ul>
+  </aside>
+</div>
+<nav class="navbar" id="nav-bar">
+  <div class="navbar-center">
+    <img src="./assets/logo_caminoreal.png" width="50" height="50">
+    <h4>Camino Real Urbanizacion</h4>
+  </div>
+  <div class="navbar-right">
+    <div class="dropdown">
+      <button class="dropbtn"><img src="./assets/users.png" width="35" height="40"></button>
+      <span>Hola , {{ username }}</span>
+      <div class="dropdown-content-lg"><br>
+        <button class="btn btn-danger" (click)="logout()"><i class="fa fa-sign-out"></i>Cerrar Sesión</button>
+      </div>
+    </div>
+  </div>
+</nav>
+<h2><b>Notificaciones:</b></h2> 
+
+<div class="message-form">
+  <h2>Enviar Mensaje</h2>
+  <form>
+    <label for="residente">Seleccionar Residente:</label>
+    <select id="residente" [(ngModel)]="residenteseleccionado" name="residente" required>
+      <option *ngFor="let residente of residentes" [ngValue]="residente">
+        {{ residente.usuario?.nombre }} {{ residente.usuario?.apellido }} / {{ residente.celular }}
+      </option>
+    </select>    
+    <label for="motivo">Motivo:</label>
+    <select id="motivo" [(ngModel)]="seleccionarmotivo" name="motivo" (change)="onMotivoChange($event)" required>
+      <option value="Recordatorio">Recordatorio</option>
+      <option value="Alerta">Alerta</option>
+      <option value="Información">Información</option>
+      <option value="Acceso Permitido">Acceso Permitido</option>
+      <option value="Acceso Denegado">Acceso Denegado</option>
+      <option value="Emergencia">Emergencia</option>
+      <option value="Mantenimiento Programado">Mantenimiento Programado</option>
+      <option value="Actualización de Seguridad">Actualización de Seguridad</option>
+      <option value="Recordatorio de Visita">Recordatorio de Visita</option>
+      <option value="Aviso de Pérdida">Aviso de Pérdida</option>
+      <option value="Cambio de Horario">Cambio de Horario</option>
+      <option value="Reglas y Normas">Reglas y Normas</option>
+      <option value="Pago de Alicuotas">Pago de Alicuotas</option>
+      <option value="Delivery en Garita">Delivery en Garita</option>
+      <option value="Evento">Evento</option>
+      <option value="Falta de Pago">Falta de Pago</option>
+    </select>
+
+    <label for="message">Mensaje:</label>
+    <textarea id="message" [(ngModel)]="messageText" name="message" rows="4" required></textarea>
+
+
+    <button type="button" class="btn-whatsapp" (click)="enviarWhatsApp()">
+      <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
+    </button>
+    <button type="button" class="btn-sms" (click)="enviarSMS()">
+      <i class="fas fa-sms"></i> Enviar por SMS
+    </button>
+  </form>
+</div>
+

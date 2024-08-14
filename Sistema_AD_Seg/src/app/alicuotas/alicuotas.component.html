@@ -1,0 +1,121 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<div class="aw">
+   <input type="checkbox" id="toggler" />
+   <aside class="aside-wrapper" >
+      <h1 class="logo-text"><span>Menú</span> 
+         <label for="toggler"><i class="fas fa-bars sidebar-toggle"></i></label>
+      </h1>
+      <ul>
+         <li>
+            <i class="fa fa-briefcase"></i> Administración 
+            <ul class="sub-menu">
+               <li href="#"><i class="fas fa-user"></i> <a href="gestionusuario">Gestion de Usuarios</a></li>
+               <li href="#"><i class="fas fa-sack-dollar"></i> <a href="alicuotas"> Alicuotas</a></li>
+               <li><i class="fas fa-user-plus"></i> <a href="registro-personal">Personal</a></li>
+               <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+            </ul>
+         </li>
+         <li>
+            <i class="fa fa-calendar-alt"></i> Eventos
+            <ul class="sub-menu">
+               <li><i class="fas fa-history"></i><a href="eventos">Eventos</a></li>
+               <li><i class="fas fa-edit"></i><a href="registro-evento">Registro de Eventos</a></li>
+               <li><i class="fas fa-user-check"></i><a href="registro-visitantes">Registro de Visitantes</a></li>
+            </ul>
+         </li>
+         <li>
+            <i class="fa fa-shield"></i> Seguridad
+            <ul class="sub-menu">
+               <li><i class="fas fa-car"></i> <a href="registro-control">Control de acceso</a></li>
+               <li><i class="fas fa-address-book"></i> <a href="formulario-control">Registro de acceso</a></li>
+               <li><i class="fas fa-expand"></i> <a href="lector-qr">Lector QR</a></li>
+               <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+            </ul>
+         </li>
+         <li>
+            <i class="fa fa-paper-plane"></i> Notificaciones 
+            <ul class="sub-menu">
+               <li><i class="fas fa-paper-plane"></i> <a href="notificaciones">Notificaciones</a></li>
+            </ul>
+         </li>
+      </ul>
+   </aside>
+</div>
+<nav class="navbar" id="nav-bar">
+   <div class="navbar-center">
+      <img src="./assets/logo_caminoreal.png" width="50" height="50">
+      <h4>Camino Real Urbanizacion</h4>
+   </div>
+   <div class="navbar-right" >
+      <div class="dropdown">
+         <button class="dropbtn"><img src="./assets/users.png" width="35" height="40"></button>
+         <span>Hola , {{ username }}</span>
+         <div class="dropdown-content-lg"><br>
+            <button class="btn btn-danger" (click)="logout()" ><i class="fa fa-sign-out"></i>Cerrar Sesión</button>
+         </div>
+      </div>
+   </div>
+</nav>
+<h2><b>Alicuotas Mensuales: </b></h2>
+<!-- Campo de búsqueda -->
+<input class="form-control" type="search" placeholder="Buscar.." [(ngModel)]="filtro">
+<!-- Botón para exportar a Excel -->
+<button *ngIf="'Acciones' | role: 'Administracion'"class="btn-excel" (click)="exportarExcel()">
+<img src="./assets/excel.png" width="40" height="45" alt="Exportar a Excel">
+</button>
+<!-- Enlace para crear un nuevo usuario -->
+<a *ngIf="'Acciones' | role: 'Administracion'" href="registro-alicuotas" class="btn-add">Agregar</a>
+<div class="contenido">
+   <!-- Tabla para mostrar los usuarios -->
+   <table  mat-table id="alicuota">
+      <thead>
+         <tr>
+            <th>Solar</th>
+            <th>M2</th>
+            <th>Nombre</th>
+            <th>Cédula</th>
+            <th>Dirección</th>
+            <th>Fecha</th>
+            <th>Mes</th>
+            <th>Monto Mensual</th>
+            <th>Deuda</th>
+            <th>Total</th>
+            <th *ngIf="'Acciones' | role: 'Administracion'">Acciones</th>
+         </tr>
+      </thead>
+      <tbody id="listado">
+         <!-- Filtro aplicado para mostrar los datos -->
+         <tr *ngFor="let row of (filtrar() | paginate: { itemsPerPage: 5, currentPage: p })">
+            <td>{{ row.residente?.solar }}</td>
+            <td>{{ row.residente?.m2 }}</td>
+            <td>{{ row.usuario.nombre }} {{ row.usuario.apellidos }}</td>
+            <td>{{ row.residente?.cedula }}</td>
+            <td>{{ row.residente?.direccion }}</td>
+            <td>{{ row.fecha | date:'yyyy/MM/dd'}}</td>
+            <td>{{ row.mes }}</td>
+            <td>{{ row.monto_por_cobrar }}</td>
+            <td>
+               <span [ngClass]="{'pagado': row.pagado, 'no-pagado': !row.pagado}">
+               {{ row.pagado ? 'Pagado' : 'No Pagado' }}
+               </span>
+            </td>
+            <td>{{ getTotalAdeudado(row.residente?.id_residente) }}</td>
+            <td *ngIf="'Acciones' | role: 'Administracion'">
+               <!-- Boton para pagar deuda mensual -->
+               <button class="btn-pagar" *ngIf="!row.pagado" (click)="marcarpago(row.id_alicuota) " title="Pagar Alicuota">
+               <i class="fas fa-hand-holding-usd"></i>
+               </button>
+               <!-- Botones para editar y eliminar -->
+               <button class="btn-edit" (click)="editAlicuota(row.id_alicuota)">
+               <i class="fas fa-edit"></i>
+               </button>
+               <button class="btn-trash" (click)="deleteAlicuota(row.id_alicuota)">
+               <i class="fas fa-trash"></i> 
+               </button>
+            </td>
+         </tr>
+      </tbody>
+   </table>
+   <!-- Controles de paginación -->
+   <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+</div>

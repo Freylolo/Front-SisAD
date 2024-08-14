@@ -1,0 +1,105 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<div class="aw">
+  <input type="checkbox" id="toggler" />
+  <aside class="aside-wrapper" >
+    <h1 class="logo-text"><span>Menú</span> 
+      <label for="toggler"><i class="fas fa-bars sidebar-toggle"></i></label>
+    </h1>
+    <ul>
+      <li>
+        <i class="fa fa-briefcase"></i> Administración 
+        <ul class="sub-menu">
+          <li href="#"><i class="fas fa-user"></i> <a href="gestionusuario">Gestion de Usuarios</a></li>
+          <li href="#"><i class="fas fa-sack-dollar"></i> <a href="alicuotas"> Alicuotas</a></li>
+          <li><i class="fas fa-user-plus"></i> <a href="registro-personal">Personal</a></li>
+          <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-calendar-alt"></i> Eventos
+        <ul class="sub-menu">
+          <li><i class="fas fa-history"></i><a href="eventos">Eventos</a></li>
+          <li><i class="fas fa-edit"></i><a href="registro-evento">Registro de Eventos</a></li>
+          <li><i class="fas fa-user-check"></i><a href="registro-visitantes">Registro de Visitantes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-shield"></i> Seguridad
+        <ul class="sub-menu">
+          <li><i class="fas fa-car"></i> <a href="registro-control">Control de acceso</a></li>
+          <li><i class="fas fa-address-book"></i> <a href="formulario-control">Registro de acceso</a></li>
+          <li><i class="fas fa-expand"></i> <a href="lector-qr">Lector QR</a></li>
+          <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-paper-plane"></i> Notificaciones 
+        <ul class="sub-menu">
+          <li><i class="fas fa-paper-plane"></i> <a href="notificaciones">Notificaciones</a></li>
+        </ul>
+      </li>
+    </ul>
+  </aside>
+</div>
+<nav class="navbar" id="nav-bar">
+  <div class="navbar-center">
+    <img src="./assets/logo_caminoreal.png" width="50" height="50">
+    <h4>Camino Real Urbanizacion</h4>
+  </div>
+  <div class="navbar-right" >
+    <div class="dropdown">
+      <button class="dropbtn"><img src="./assets/users.png" width="35" height="40"></button>
+      <span>Hola , {{ username }}</span>
+      <div class="dropdown-content-lg"><br>
+        <button class="btn btn-danger" (click)="logout()" ><i class="fa fa-sign-out"></i>Cerrar Sesión</button>
+      </div>
+    </div>
+  </div>
+</nav>
+<h2><b>Gestión de Usuarios:</b></h2>
+  <!-- Campo de búsqueda -->
+  <input class="form-control" type="search" placeholder="Buscar.." [(ngModel)]="filtro">
+  <!-- Botón para exportar a Excel -->
+  <button class="btn-excel" (click)="exportarExcel()">
+  <img src="./assets/excel.png" width="40" height="45" alt="Exportar a Excel">
+  </button>
+  <!-- Enlace para crear un nuevo usuario -->
+  <a href="registro-usuario" class="btn-add">Crear Usuario</a>
+  <div class="contenido">
+  <!-- Tabla para mostrar los usuarios -->
+  <table mat-table id="Usuarios">
+    <thead>
+      <tr>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Perfil</th>
+        <th>Usuario</th>
+        <th>Email</th>
+        <th>Contraseña</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="listado">
+      <!-- Filtro aplicado para mostrar los datos -->
+      <tr *ngFor="let row of (filtrar() | paginate: { itemsPerPage: 5, currentPage: p })">
+        <td>{{ row.nombre }}</td>
+        <td>{{ row.apellido }}</td>
+        <td>{{ row.perfil }}</td>
+        <td>{{ row.username }}</td>
+        <td>{{ row.correo_electronico }}</td>
+        <td>{{ row.contrasena }}</td>
+        <td>
+          <!-- Botones para editar y eliminar -->
+          <button class="btn-edit" (click)="editUsuario(row.id_usuario)">
+          <i class="fas fa-edit"></i>
+          </button>
+          <button class="btn-trash" (click)="deleteUsuario(row.id_usuario)">
+          <i class="fas fa-trash"></i> 
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- Controles de paginación -->
+  <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+</div>

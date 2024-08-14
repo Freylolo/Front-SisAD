@@ -1,0 +1,119 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<div class="aw">
+  <input type="checkbox" id="toggler" />
+  <aside class="aside-wrapper" >
+    <h1 class="logo-text"><span>Menú</span> 
+      <label for="toggler"><i class="fas fa-bars sidebar-toggle"></i></label>
+    </h1>
+    <ul>
+      <li>
+        <i class="fa fa-briefcase"></i> Administración 
+        <ul class="sub-menu">
+         <li href="#"><i class="fas fa-user"></i> <a href="gestionusuario">Gestion de Usuarios</a></li>
+          <li href="#"><i class="fas fa-sack-dollar"></i> <a href="alicuotas"> Alicuotas</a></li>
+          <li><i class="fas fa-user-plus"></i> <a href="registro-personal">Personal</a></li>
+          <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-calendar-alt"></i> Eventos
+        <ul class="sub-menu">
+          <li><i class="fas fa-history"></i><a href="eventos">Eventos</a></li>
+          <li><i class="fas fa-edit"></i><a href="registro-evento">Registro de Eventos</a></li>
+          <li><i class="fas fa-user-check"></i><a href="registro-visitantes">Registro de Visitantes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-shield"></i> Seguridad
+        <ul class="sub-menu">
+          <li><i class="fas fa-car"></i> <a href="registro-control">Control de acceso</a></li>
+          <li><i class="fas fa-address-book"></i> <a href="formulario-control">Registro de acceso</a></li>
+          <li><i class="fas fa-expand"></i> <a href="lector-qr">Lector QR</a></li>
+          <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-paper-plane"></i> Notificaciones 
+        <ul class="sub-menu">
+          <li><i class="fas fa-paper-plane"></i> <a href="notificaciones">Notificaciones</a></li>
+        </ul>
+      </li>
+    </ul>
+  </aside>
+</div>
+<nav class="navbar" id="nav-bar">
+  <div class="navbar-center">
+    <img src="./assets/logo_caminoreal.png" width="50" height="50">
+    <h4>Camino Real Urbanizacion</h4>
+  </div>
+  <div class="navbar-right" >
+    <div class="dropdown">
+      <button class="dropbtn"><img src="./assets/users.png" width="35" height="40"></button>
+      <span>Hola , {{ username }}</span>
+      <div class="dropdown-content-lg"><br>
+        <button class="btn-danger" (click)="logout()" ><i class="fa fa-sign-out"></i>Cerrar Sesión</button>
+      </div>
+    </div>
+  </div>
+</nav>
+<br>
+<div class="container">
+  <h2>Registro de Usuario</h2>
+  <form (ngSubmit)="Guardar()" #userForm="ngForm">
+      <div class="form-row">
+        <div class="form-group">
+           <label for="correo_electronico">Email<span class="text-danger"> :</span></label>
+           <input type="email" id="correo_electronico" name="correo_electronico" placeholder="ejemplo@email.com" [(ngModel)]="nuevoUsuario.correo_electronico" (blur)="checkCorreoUsuarios()">
+           <div *ngIf="validationErrors.correo_electronico" class="text-danger">
+            <div *ngFor="let error of validationErrors.correo_electronico">{{ error }}</div>
+            </div>
+          </div>  
+          <div class="form-group">
+              <label for="contrasena">Contraseña:</label>
+              <input type="password" id="contrasena" name="contrasena" [(ngModel)]="nuevoUsuario.contrasena" required>
+              <div *ngIf="validationErrors?.contrasena" class="error-message">
+                  <span *ngFor="let error of validationErrors.contrasena">{{ error }}</span>
+              </div>
+          </div>
+      </div>
+      <div class="form-row">
+          <div class="form-group">
+              <label for="nombre">Nombres:</label>
+              <input type="text" id="nombre" name="nombre" [(ngModel)]="nuevoUsuario.nombre" required>
+              <div *ngIf="validationErrors?.nombre">
+                  <span *ngFor="let error of validationErrors.nombre">{{ error }}</span>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="apellido">Apellidos:</label>
+              <input type="text" id="apellido" name="apellido" [(ngModel)]="nuevoUsuario.apellido" required>
+              <div *ngIf="validationErrors?.apellido">
+                  <span *ngFor="let error of validationErrors.apellido">{{ error }}</span>
+              </div>
+          </div>
+      </div>
+      <div class="form-row">
+          <div class="form-group">
+              <label for="username">Nombre de Usuario:</label>
+              <input type="text" id="username" name="username" [(ngModel)]="nuevoUsuario.username" required (blur)="checkUsernameUsuarios()">
+              <div *ngIf="validationErrors?.username">
+                  <span *ngFor="let error of validationErrors.username">{{ error }}</span>
+              </div>
+          </div>
+          <div class="form-group">
+            <label for="perfil">Perfil:</label>
+            <select id="perfil" name="perfil" [(ngModel)]="nuevoUsuario.perfil" (change)="updateRol()" required>
+              <option value="Residente">Residente</option>
+              <option value="Propietario">Propietario</option>
+              <option value="Seguridad">Guardia de Seguridad</option>
+              <option value="Administracion">Administración</option>
+            </select>
+          </div>          
+      </div>
+      <div class="form-group">
+          <button class="btn-registrar" type="submit">Registrarse</button>
+      </div>
+  </form>
+</div>
+
+

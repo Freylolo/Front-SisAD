@@ -1,0 +1,129 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 42%;
+  background-color: #033c6b;
+}
+
+.contenedor {
+  display: flex;
+  justify-content: flex-end; 
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.login-form {
+  border: 2px solid #042f53;
+  border-radius: 9px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 2px 5px #011220;
+  text-align: center;
+  padding-top: 10px;
+  width: 70%;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  border-top: 2px solid #033c6b; 
+  padding-top: 10px;
+  color: #6c757d;
+  font-family: Didot, "Didot LT STD", "Hoefler Text", Garamond, "Times New Roman", serif;
+  font-size: 24px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 700;
+  line-height: 26.4px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  width: 90%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.form-group label {
+  margin-right: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+  max-width: 100%;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  color: #6c757d;
+}
+
+i {
+  color: #6c757d;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: #dadbdd;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 9px;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+/* Media queries para hacer el diseño responsive */
+@media (max-width: 768px) {
+  .login-container {
+    width: 80%;
+  }
+
+  .login-form {
+    width: 100%;
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .login-form {
+    width: 100%;
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

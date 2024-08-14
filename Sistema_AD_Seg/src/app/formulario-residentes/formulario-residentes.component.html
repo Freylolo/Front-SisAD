@@ -1,0 +1,190 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<div class="aw">
+  <input type="checkbox" id="toggler" />
+  <aside class="aside-wrapper" >
+    <h1 class="logo-text"><span>Menú</span> 
+      <label for="toggler"><i class="fas fa-bars sidebar-toggle"></i></label>
+    </h1>
+    <ul>
+      <li>
+        <i class="fa fa-briefcase"></i> Administración 
+        <ul class="sub-menu">
+          <li href="#"><i class="fas fa-user"></i> <a href="gestionusuario">Gestion de Usuarios</a></li>
+          <li href="#"><i class="fas fa-sack-dollar"></i> <a href="alicuotas"> Alicuotas</a></li>
+          <li><i class="fas fa-user-plus"></i> <a href="registro-personal">Personal</a></li>
+          <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-calendar-alt"></i> Eventos
+        <ul class="sub-menu">
+          <li><i class="fas fa-history"></i><a href="eventos">Eventos</a></li>
+          <li><i class="fas fa-edit"></i><a href="registro-evento">Registro de Eventos</a></li>
+          <li><i class="fas fa-user-check"></i><a href="registro-visitantes">Registro de Visitantes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-shield"></i> Seguridad
+        <ul class="sub-menu">
+          <li><i class="fas fa-car"></i> <a href="registro-control">Control de acceso</a></li>
+          <li><i class="fas fa-address-book"></i> <a href="formulario-control">Registro de acceso</a></li>
+          <li><i class="fas fa-expand"></i> <a href="lector-qr">Lector QR</a></li>
+          <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-paper-plane"></i> Notificaciones 
+        <ul class="sub-menu">
+          <li><i class="fas fa-paper-plane"></i> <a href="notificaciones">Notificaciones</a></li>
+        </ul>
+      </li>
+    </ul>
+  </aside>
+</div>
+<nav class="navbar" id="nav-bar">
+  <div class="navbar-center">
+    <img src="./assets/logo_caminoreal.png" width="50" height="50">
+    <h4>Camino Real Urbanizacion</h4>
+  </div>
+  <div class="navbar-right">
+    <div class="dropdown">
+      <button class="dropbtn"><img src="./assets/users.png" width="35" height="40"></button>
+      <span>Hola , {{ username }}</span>
+      <div class="dropdown-content-lg"><br>
+        <button class="btn-danger" (click)="logout()"><i class="fa fa-sign-out"></i>Cerrar Sesión</button>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="formulario">
+  <h2>Registro de Residentes: </h2>
+  <div class="container">
+    <h5>Información Personal</h5>
+    <form class="form" (ngSubmit)="guardar()">
+      <div class="row">
+        <div class="form-group col">
+          <label for="usuario">Nombres:<span class="text-danger"> :</span></label>
+          <select id="usuario" name="usuario" (change)="seleccionarUsuario($event)" required>
+            <option *ngFor="let usuario of usuariosResidentes" [value]="usuario.id_usuario">
+              {{ usuario.nombre }} {{ usuario.apellido }}
+            </option>
+          </select>
+          <div *ngIf="!nuevoResidente.id_usuario" class="text-danger">
+            Seleccione un usuario válido.
+          </div>
+        </div>
+        <div class="form-group col">
+          <label for="correo">Correo Electrónico<span class="text-danger"> :</span></label>
+          <input type="email" id="correo" name="correo" [value]="nuevoResidente.correo_electronico" readonly>
+        </div>        
+      </div>
+      <div class="row">
+        <div class="form-group col">
+          <label for="cedula">Cédula<span class="text-danger"> :</span></label>
+          <input type="text" id="cedula" name="cedula" placeholder="ID / Pasaporte" required [(ngModel)]="nuevoResidente.cedula" (blur)="checkCedula()" #cedula="ngModel">
+          <div *ngIf="cedula.invalid && (cedula.dirty || cedula.touched)" class="text-danger">
+            <div *ngIf="cedula.errors?.['required']"></div>
+          </div>
+          <div *ngIf="validationErrors.cedula" class="text-danger">
+            <div *ngFor="let error of validationErrors.cedula">{{ error }}</div>
+          </div>
+        </div>
+        <div class="form-group col">
+          <label for="perfil">Perfil<span class="text-danger"> :</span></label>
+          <select id="perfil" name="perfil" required [(ngModel)]="nuevoResidente.perfil" #perfil="ngModel">
+              <option value="">Seleccione</option>
+              <option value="Residente">Residente</option>
+              <option value="Propietario">Propietario</option>
+          </select>
+          <div *ngIf="perfil.invalid && (perfil.dirty || perfil.touched)" class="text-danger">
+              <div *ngIf="validationErrors.perfil" class="text-danger">{{ validationErrors.perfil[0] }}</div>
+          </div>
+      </div>
+      </div>
+      <div class="row">
+        <div class="form-group col">
+          <label for="sexo">Sexo<span class="text-danger"> :</span></label>
+          <select id="sexo" name="sexo" required [(ngModel)]="nuevoResidente.sexo" #sexo="ngModel">
+            <option value="">Seleccione</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+          </select>
+          <div *ngIf="sexo.invalid && (sexo.dirty || sexo.touched)" class="text-danger">
+            <div *ngIf="validationErrors.sexo" class="text-danger">{{ validationErrors.sexo[0] }}</div>
+          </div>
+        </div>
+        <div class="form-group col">
+          <label for="direccion">Dirección<span class="text-danger"> :</span></label>
+          <input type="text" id="direccion" name="direccion" placeholder="Mz / V" [(ngModel)]="nuevoResidente.direccion">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col">
+          <label for="celular">Celular<span class="text-danger"> :</span></label>
+          <input type="text" id="celular" name="celular" placeholder="+593" required [(ngModel)]="nuevoResidente.celular" (blur)="checkCelularR()" #celular="ngModel">
+          <div *ngIf="celular.invalid && (celular.dirty || celular.touched)" class="text-danger">
+            <div *ngIf="celular.errors?.['required']">Celular es obligatorio</div>
+          </div>
+          <div *ngIf="validationErrors.celular" class="text-danger">
+            <div *ngFor="let error of validationErrors.celular">{{ error }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <h5>Información Vehicular:</h5>
+        <div class="form-group col">
+          <label for="cantidad_vehiculos">Cantidad de Vehículos<span class="text-danger"> :</span></label>
+          <input type="number" id="cantidad_vehiculos" name="cantidad_vehiculos" placeholder="" [(ngModel)]="nuevoResidente.cantidad_vehiculos">
+        </div>
+        <div class="form-group col">
+          <label for="vehiculo1_placa">Placas<span class="text-danger"> :</span></label>
+          <input type="text" id="vehiculo1_placa" name="vehiculo1_placa" placeholder="" [(ngModel)]="nuevoResidente.vehiculo1_placa">
+          <br>
+          <input type="text" id="vehiculo2_placa" name="vehiculo2_placa" placeholder="Opcional" [(ngModel)]="nuevoResidente.vehiculo2_placa">
+          <br>
+          <input type="text" id="vehiculo3_placa" name="vehiculo3_placa" placeholder="Opcional" [(ngModel)]="nuevoResidente.vehiculo3_placa">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col">
+          <br>
+          <label for="vehiculo1_observaciones">Observaciones del vehículo 1 <span class="text-danger"> :</span></label>
+          <textarea id="vehiculo1_observaciones" name="vehiculo1_observaciones" placeholder="Ingrese observaciones (características)" rows="2" [(ngModel)]="nuevoResidente.vehiculo1_observaciones"></textarea>
+        </div>
+        <div class="form-group col">
+          <label for="vehiculo2_observaciones">Observaciones del vehículo 2 <span class="text-danger"> :</span></label>
+          <textarea id="vehiculo2_observaciones" name="vehiculo2_observaciones" rows="2" [(ngModel)]="nuevoResidente.vehiculo2_observaciones"></textarea>
+        </div>
+        <div class="form-group col">
+          <label for="vehiculo3_observaciones">Observaciones del vehículo 3 <span class="text-danger"> :</span></label>
+          <textarea id="vehiculo3_observaciones" name="vehiculo3_observaciones" rows="2" [(ngModel)]="nuevoResidente.vehiculo3_observaciones"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <h5>Información De Propiedad:</h5>
+        <div class="form-group col">
+          <label for="solar">Solar<span class="text-danger"> :</span></label>
+          <input type="text" id="solar" name="solar" placeholder="Ingrese número de solar" required [(ngModel)]="nuevoResidente.solar" #solar="ngModel">
+          <div *ngIf="validationErrors.solar" class="text-danger">{{ validationErrors.solar[0] }}</div>
+        </div>
+        <div class="form-group col">
+          <label for="m2">M2<span class="text-danger"> :</span></label>
+          <input type="number" id="m2" name="m2" placeholder="M2 Terreno" required [(ngModel)]="nuevoResidente.m2" #m2="ngModel">
+          <div *ngIf="validationErrors.m2" class="text-danger">{{ validationErrors.m2[0] }}</div>
+        </div>
+      </div>
+      <div class="row">
+        <h5>Información Adicional:</h5>
+        <div class="form-group col-span-6">
+          <label for="observaciones">Observaciones<span class="text-danger">*</span></label>
+          <textarea id="observaciones" name="observaciones" rows="3" [(ngModel)]="nuevoResidente.observaciones"></textarea>
+          <div *ngIf="validationErrors.observaciones" class="text-danger">{{ validationErrors.observaciones[0] }}</div>
+        </div>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+  </div>
+</div>
+
+

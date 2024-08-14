@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<div class="modal-header">
+  <h4 class="modal-title"><b>Editar Usuarios :</b></h4>
+  <button type="button" class="close custom-close-button" aria-label="Close" (click)="modalRef.dismiss()">
+    <i class="fas fa-times-circle" aria-hidden="true"></i>
+  </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="col-md-6 form-group d-none">
+            <label>ID Usuario</label>
+            <input class="form-control" formControlName="id_usuario" #disabled>
+          </div>
+        <div class="form-group">
+          <label for="correo_electronico">Email:</label>
+          <input type="email" id="correo_electronico" formControlName="correo_electronico" class="form-control">
+          <div *ngIf="form.get('correo_electronico')?.invalid && form.get('correo_electronico')?.touched" class="text-danger">
+            El correo electrónico es requerido y debe ser válido.
+          </div>
+        </div>
+        <div class="form-group d-none">
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" formControlName="contrasena" class="form-control" #disabled>
+            <div *ngIf="form.get('contrasena')?.invalid && form.get('contrasena')?.touched" class="text-danger">
+              La contraseña es requerida.
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="nombre">Nombres:</label>
+          <input type="text" id="nombre" formControlName="nombre" class="form-control">
+          <div *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched" class="text-danger">
+            El nombre es requerido.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="apellido">Apellidos:</label>
+          <input type="text" id="apellido" formControlName="apellido" class="form-control">
+          <div *ngIf="form.get('apellido')?.invalid && form.get('apellido')?.touched" class="text-danger">
+            El apellido es requerido.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="username">Nombre de Usuario:</label>
+          <input type="text" id="username" formControlName="username" class="form-control">
+          <div *ngIf="form.get('username')?.invalid && form.get('username')?.touched" class="text-danger">
+            El nombre de usuario es requerido.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="perfil">Perfil:</label>
+          <select id="perfil" formControlName="perfil" class="form-control">
+            <option value="Residente">Residente</option>
+            <option value="Propietario">Propietario</option>
+            <option value="Seguridad">Guardia de Seguridad</option>
+            <option value="Administracion">Administración</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+</div>

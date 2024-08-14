@@ -1,0 +1,151 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<div class="aw">
+   <input type="checkbox" id="toggler" />
+   <aside class="aside-wrapper" >
+      <h1 class="logo-text"><span>Menú</span> 
+         <label for="toggler"><i class="fas fa-bars sidebar-toggle"></i></label>
+      </h1>
+      <ul>
+         <li>
+            <i class="fa fa-briefcase"></i> Administración 
+            <ul class="sub-menu">
+               <li href="#"><i class="fas fa-user"></i> <a href="gestionusuario">Gestion de Usuarios</a></li>
+               <li href="#"><i class="fas fa-sack-dollar"></i> <a href="alicuotas"> Alicuotas</a></li>
+               <li><i class="fas fa-user-plus"></i> <a href="registro-personal">Personal</a></li>
+               <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+            </ul>
+         </li>
+         <li>
+            <i class="fa fa-calendar-alt"></i> Eventos
+            <ul class="sub-menu">
+               <li><i class="fas fa-history"></i><a href="eventos">Eventos</a></li>
+               <li><i class="fas fa-edit"></i><a href="registro-eventos">Registro de Eventos</a></li>
+               <li><i class="fas fa-user-check"></i><a href="registro-visitantes">Registro de Visitantes</a></li>
+            </ul>
+         </li>
+         <li>
+            <i class="fa fa-shield"></i> Seguridad
+            <ul class="sub-menu">
+               <li><i class="fas fa-car"></i> <a href="registro-control">Control de acceso</a></li>
+               <li><i class="fas fa-address-book"></i> <a href="formulario-control">Registro de acceso</a></li>
+               <li><i class="fas fa-expand"></i> <a href="lector-qr">Lector QR</a></li>
+               <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+            </ul>
+         </li>
+         <li>
+            <i class="fa fa-paper-plane"></i> Notificaciones 
+            <ul class="sub-menu">
+               <li><i class="fas fa-paper-plane"></i> <a href="notificaciones">Notificaciones</a></li>
+            </ul>
+         </li>
+      </ul>
+   </aside>
+</div>
+<nav class="navbar" id="nav-bar">
+   <div class="navbar-center">
+      <img src="./assets/logo_caminoreal.png" width="50" height="50">
+      <h4>Camino Real Urbanizacion</h4>
+   </div>
+   <div class="navbar-right">
+      <div class="dropdown">
+         <button class="dropbtn"><img src="./assets/users.png" width="35" height="40"></button>
+         <span>Hola , {{ username }}</span>
+         <div class="dropdown-content-lg"><br>
+            <button class="btn-danger" (click)="logout()"><i class="fa fa-sign-out"></i>Cerrar Sesión</button>
+         </div>
+      </div>
+   </div>
+</nav>
+<div class="formulario">
+   <h2>Registro de Evento:</h2>
+   <div class="container">
+      <form class="form" (ngSubmit)="guardar()" enctype="multipart/form-data">
+         <div class="row">
+            <div class="form-group col">
+               <label for="nombre">Nombre<span class="text-danger"> :</span></label>
+               <input type="text" id="nombre" name="nombre" [(ngModel)]="nuevoEvento.nombre" placeholder="Ingrese nombre" required [readonly]="true"/>
+            </div>
+            <div class="form-group col">
+               <label for="apellidos">Apellidos<span class="text-danger"> :</span></label>
+               <input type="text" id="apellido" name="apellidos" [(ngModel)]="nuevoEvento.apellidos" placeholder="Ingrese apellidos" required [readonly]="true">
+            </div>
+            <div class="form-group col">
+               <label for="celular">Celular<span class="text-danger"> :</span></label>
+               <input type="text" id="celular" name="celular" [(ngModel)]="nuevoEvento.celular" placeholder="+593" required [readonly]="true">
+            </div>
+            <div class="form-group col">
+               <label for="cedula">Cédula<span class="text-danger"> :</span></label>
+               <input type="text" id="cedula" name="cedula" [(ngModel)]="nuevoEvento.cedula" placeholder="ID / Pasaporte" required [readonly]="true">
+            </div>
+         </div>
+         <div class="row">
+            <div class="form-group col">
+               <label for="nombre_evento">Nombre del Evento<span class="text-danger"> :</span></label>
+               <input type="text" id="nombre_evento" name="nombre_evento" [(ngModel)]="nuevoEvento.nombre_evento" placeholder="Ingrese nombre del evento" required>
+            </div>
+            <div class="form-group col">
+               <label for="direccion_evento">Dirección del Evento<span class="text-danger"> :</span></label>
+               <input type="text" id="direccion_evento" name="direccion_evento" [(ngModel)]="nuevoEvento.direccion_evento" placeholder="Ingrese dirección" required>
+            </div>
+            <div class="form-group col">
+               <label for="cantidad_vehiculos">Cantidad de Vehículos<span class="text-danger"> :</span></label>
+               <input type="number" id="cantidad_vehiculos" name="cantidad_vehiculos" [(ngModel)]="nuevoEvento.cantidad_vehiculos" placeholder="Número de vehículos" max="20">
+            </div>
+            <div class="form-group col">
+               <label for="cantidad_personas">Cantidad de Personas<span class="text-danger"> :</span></label>
+               <input type="number" id="cantidad_personas" name="cantidad_personas" [(ngModel)]="nuevoEvento.cantidad_personas" placeholder="Número de personas" required max="20">
+            </div>
+         </div>
+         <div class="row">
+            <div class="form-group col">
+               <label for="tipo_evento">Tipo de Evento<span class="text-danger"> :</span></label>
+               <select (change)="onTipoEventoSelect($event)" id="tipo_evento" name="tipo_evento" [(ngModel)]="nuevoEvento.tipo_evento" required>
+               <option value="">Seleccione</option>
+               <option value="Evento social">Evento social</option>
+               <option value="Hogar">Hogar</option>
+               <option value="Cancha de futbol">Cancha de futbol</option>
+               <option value="Parque comunitario">Parque comunitario</option>
+               <option value="Club Acuatico">Club Acuatico</option>
+               <option value="Club Residencial">Club Residencial</option>
+               </select>
+            </div>
+            <div class="form-group col">
+               <label for="fecha">Fecha<span class="text-danger"> :</span></label>
+               <input type="date" id="fecha" name="fecha" [(ngModel)]="fechaSeleccionada"
+               [min]="minFecha" [max]="maxFecha"
+               (change)="onFechaChange()"
+               [attr.disabled]="nuevoEvento.tipo_evento === 'Hogar' ? null : isFechaDeshabilitada(fechaSeleccionada) ? true : null"
+               class="fecha-input">
+            </div>
+            <div class="form-group col">
+               <label for="hora">Hora<span class="text-danger"> :</span></label>
+               <select id="hora" name="hora" [(ngModel)]="horaSeleccionada" (change)="onHoraChange()" [disabled]="!fechaSeleccionada" class="hora-select">
+                 <option *ngFor="let hora of horasDisponibles" [value]="hora">{{ hora }}</option>
+               </select>
+             </div>             
+            <div class="form-group col">
+               <label for="duracion_evento">Duración del Evento (horas)<span class="text-danger"> :</span></label>
+               <input type="number" id="duracion_evento" name="duracion_evento" [(ngModel)]="nuevoEvento.duracion_evento" placeholder="Duración en horas" required max="5">
+            </div>
+            <div class="form-group col">
+               <label for="listado_evento">Adjuntar listado: <span class="text-danger"> :</span></label>
+               <input type="file" id="listado_evento" name="listado_evento" (change)="subirdoc($event)" class="small-input">
+             </div>              
+             <div *ngFor="let code of qrCodes; let i = index" #qrContainer class="hidden-for-canvas">
+               <qrcode [qrdata]="code.qrData"></qrcode>
+             </div>                      
+         </div>
+         <div class="row">
+            <div class="form-group col">
+               <label for="observaciones">Observaciones<span class="text-danger"> :</span></label>
+               <textarea id="observaciones" name="observaciones" [(ngModel)]="nuevoEvento.observaciones" placeholder="Ingrese observaciones" rows="3"></textarea>
+            </div>
+            <div class="form-group col">
+               <a id="formato" class="download-link" href="assets/formato-listado-camino-real.docx" download>Descargar Formato de Listado</a>
+            </div>
+         </div>
+         <button type="submit" class="btn btn-primary">Guardar</button>
+         <a href="registro-visitantes" class="btn btn-info">Registrar invitados</a>
+      </form>
+   </div>
+</div>

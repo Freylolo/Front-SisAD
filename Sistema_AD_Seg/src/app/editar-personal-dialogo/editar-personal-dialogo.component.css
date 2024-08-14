@@ -1,0 +1,97 @@
+.modal-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .modal-body {
+    padding: 1.5rem; /* Ajusta el padding para un mejor espaciado */
+  }
+  
+  .modal-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-control {
+    border-radius: 0.25rem;
+    box-shadow: none;
+  }
+  
+  textarea.form-control {
+    resize: vertical; 
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    color: #fff;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
+  
+  .d-none {
+    display: none;
+  }
+  
+  .custom-close-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-left: 55%;
+  
+  }
+  
+  .custom-close-button i {
+    color: #ff0000; 
+    font-size: 24px; 
+  }
+  
+  .custom-close-button:focus {
+    outline: none;
+  }
+
+  .col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .form-control {
+    border-radius: 0.25rem !important;
+    box-shadow: none !important;
+  }
+  
+  .btn-primary {
+    background-color: #007bff !important;
+    border: none !important;
+    color: #fff !important;
+    margin-top: 2% !important;
+    margin-bottom: 2% !important;
+  }
+
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  
+  

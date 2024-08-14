@@ -1,0 +1,79 @@
+.modal-header {
+    background-color: #033c6b; 
+    color: white; 
+    border-bottom: 1px solid #dee2e6;
+    padding: 15px; 
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .modal-title {
+    margin: 0; 
+    font-size: 1.5rem; 
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .close {
+    color: white; 
+    font-size: 1.5rem; 
+    opacity: 0.8;
+  }
+  
+  .close:hover {
+    opacity: 1; 
+  }
+  
+  .modal-body {
+    padding: 20px; 
+  }
+  
+  .table {
+    width: 100%; 
+    margin-bottom: 20px;
+    background-color: #f8f9fa; 
+  }
+  
+  .table th, .table td {
+    padding: 12px; 
+    vertical-align: middle; 
+    border-top: 1px solid #dee2e6; 
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .table th {
+    background-color: #033c6b; 
+    color: white; 
+    text-align: left; 
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #f2f2f2; 
+  }
+  
+  .modal-footer {
+    padding: 15px; 
+    border-top: 1px solid #dee2e6; 
+    background-color: #f1f1f1;
+  }
+  
+  .modal-footer .btn-secondary {
+    background-color: #6c757d; 
+    border: none; 
+  }
+  
+  .modal-footer .btn-secondary:hover {
+    background-color: #5a6268; 
+  }
+  
+  h5{
+    font-family: 'Times New Roman', Times, serif;
+  }
+
+  .text-blue {
+    color: blue;
+  }
+  
+  .text-green {
+    color: green;
+  }
+  

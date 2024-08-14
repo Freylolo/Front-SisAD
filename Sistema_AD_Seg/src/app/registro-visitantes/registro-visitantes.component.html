@@ -1,0 +1,115 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<div class="aw">
+  <input type="checkbox" id="toggler" />
+  <aside class="aside-wrapper" >
+    <h1 class="logo-text"><span>Menú</span> 
+      <label for="toggler"><i class="fas fa-bars sidebar-toggle"></i></label>
+    </h1>
+    <ul>
+      <li>
+        <i class="fa fa-briefcase"></i> Administración 
+        <ul class="sub-menu">
+          <li href="#"><i class="fas fa-user"></i> <a href="gestionusuario">Gestion de Usuarios</a></li>
+          <li href="#"><i class="fas fa-sack-dollar"></i> <a href="alicuotas"> Alicuotas</a></li>
+          <li><i class="fas fa-user-plus"></i> <a href="registro-personal">Personal</a></li>
+          <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-calendar-alt"></i> Eventos
+        <ul class="sub-menu">
+          <li><i class="fas fa-history"></i><a href="eventos">Eventos</a></li>
+          <li><i class="fas fa-edit"></i><a href="registro-evento">Registro de Eventos</a></li>
+          <li><i class="fas fa-user-check"></i><a href="registro-visitantes">Registro de Visitantes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-shield"></i> Seguridad
+        <ul class="sub-menu">
+          <li><i class="fas fa-car"></i> <a href="registro-control">Control de acceso</a></li>
+          <li><i class="fas fa-address-book"></i> <a href="formulario-control">Registro de acceso</a></li>
+          <li><i class="fas fa-expand"></i> <a href="lector-qr">Lector QR</a></li>
+          <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-paper-plane"></i> Notificaciones 
+        <ul class="sub-menu">
+          <li><i class="fas fa-paper-plane"></i> <a href="notificaciones">Notificaciones</a></li>
+        </ul>
+      </li>
+    </ul>
+  </aside>
+</div>
+<nav class="navbar" id="nav-bar">
+  <div class="navbar-center">
+    <img src="./assets/logo_caminoreal.png" width="50" height="50">
+    <h4>Camino Real Urbanizacion</h4>
+  </div>
+  <div class="navbar-right">
+    <div class="dropdown">
+      <button class="dropbtn"><img src="./assets/users.png" width="35" height="40"></button>
+      <span>Hola , {{ username }}</span>
+      <div class="dropdown-content-lg"><br>
+        <button class="btn btn-danger" (click)="logout()"><i class="fa fa-sign-out"></i>Cerrar Sesión</button>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="formulario">
+  <h2>Registro de Visitantes:</h2>
+  <div class="container">
+      <form class="form">
+          <div class="row">
+              <div class="form-group col">
+                  <label for="nombre">Nombre<span class="text-danger"> :</span></label>
+                  <input type="text" id="nombre" name="nombre" [(ngModel)]="nombre" placeholder="Ingrese nombre" required>
+              </div>
+              <div class="form-group col">
+                  <label for="apellido">Apellidos<span class="text-danger"> :</span></label>
+                  <input type="text" id="apellido" name="apellido" [(ngModel)]="apellido" placeholder="Ingrese apellidos" required>
+              </div>
+              <div class="form-group col">
+                <label for="identificacion">Cédula<span class="text-danger"> :</span></label>
+                <input type="text" id="identificacion" name="identificacion" [(ngModel)]="identificacion" placeholder="ID / Pasaporte" required (blur)="validateCedula()">
+                <div *ngIf="validationErrors.cedula" class="text-danger">
+                  <div *ngFor="let error of validationErrors.cedula">{{ error }}</div>
+                </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="form-group col">
+                  <label for="direccion">Dirección<span class="text-danger"> :</span></label>
+                  <input type="text" id="direccion" name="direccion" [(ngModel)]="direccion" placeholder="Mz / V">
+              </div>
+              <div class="form-group col">
+                <label for="fecha">Fecha <span class="text-danger"> :</span></label>
+                <input type="date" id="fecha" name="fecha" [(ngModel)]="fecha" required>
+            </div>
+            <div class="form-group col">
+                <label for="hora">Hora <span class="text-danger"> :</span></label>
+                <input type="time" id="hora" name="hora" [(ngModel)]="hora" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col">
+              <label for="placas">Placas<span class="text-danger"> :</span></label>
+              <input type="text" id="placas" name="placas" [(ngModel)]="placas" placeholder="">
+          </div>
+              <div class="form-group col-span-6">
+                  <label for="Observaciones">Observaciones<span class="text-danger">*</span></label>
+                  <textarea id="Observaciones" name="Observaciones" rows="3" [(ngModel)]="Observaciones" required></textarea>
+              </div>
+          </div>
+          <div #qrContainer>
+            <qrcode #qrElement [qrdata]="qrdata" [width]="280" elementType="img" [errorCorrectionLevel]="'M'"></qrcode>
+          </div>          
+      </form>
+      <div class="button-container">
+        <button type="button" class="btn btn-image" (click)="descargarQR()"><i class="fas fa-download"></i> </button>
+        <button type="button" class="btn btn-pdf" (click)="descargarPDF()"><i class="fas fa-file-pdf"></i> </button>
+      </div>
+          <button type="submit" class="btn-primary" (click)="generarQR()">Generar QR</button>
+     </div>
+</div>
+

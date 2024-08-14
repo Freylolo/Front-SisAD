@@ -1,0 +1,145 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<div class="aw">
+  <input type="checkbox" id="toggler" />
+  <aside class="aside-wrapper" >
+    <h1 class="logo-text"><span>Menú</span> 
+      <label for="toggler"><i class="fas fa-bars sidebar-toggle"></i></label>
+    </h1>
+    <ul>
+      <li>
+        <i class="fa fa-briefcase"></i> Administración 
+        <ul class="sub-menu">
+          <li href="#"><i class="fas fa-user"></i> <a href="gestionusuario">Gestion de Usuarios</a></li>
+          <li href="#"><i class="fas fa-sack-dollar"></i> <a href="alicuotas"> Alicuotas</a></li>
+          <li><i class="fas fa-user-plus"></i> <a href="registro-personal">Personal</a></li>
+          <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-calendar-alt"></i> Eventos
+        <ul class="sub-menu">
+          <li><i class="fas fa-history"></i><a href="eventos">Eventos</a></li>
+          <li><i class="fas fa-edit"></i><a href="registro-evento">Registro de Eventos</a></li>
+          <li><i class="fas fa-user-check"></i><a href="registro-visitantes">Registro de Visitantes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-shield"></i> Seguridad
+        <ul class="sub-menu">
+          <li><i class="fas fa-car"></i> <a href="registro-control">Control de acceso</a></li>
+          <li><i class="fas fa-address-book"></i> <a href="formulario-control">Registro de acceso</a></li>
+          <li><i class="fas fa-expand"></i> <a href="lector-qr">Lector QR</a></li>
+          <li><i class="fas fa-home"></i> <a href="registro-residentes">Residentes</a></li>
+        </ul>
+      </li>
+      <li>
+        <i class="fa fa-paper-plane"></i> Notificaciones 
+        <ul class="sub-menu">
+          <li><i class="fas fa-paper-plane"></i> <a href="notificaciones">Notificaciones</a></li>
+        </ul>
+      </li>
+    </ul>
+  </aside>
+</div>
+<nav class="navbar" id="nav-bar">
+  <div class="navbar-center">
+    <img src="./assets/logo_caminoreal.png" width="50" height="50">
+    <h4>Camino Real Urbanizacion</h4>
+  </div>
+  <div class="navbar-right" >
+    <div class="dropdown">
+      <button class="dropbtn"><img src="./assets/users.png" width="35" height="40"></button>
+      <span>Hola , {{ username }}</span>
+      <div class="dropdown-content-lg"><br>
+        <button class="btn btn-danger" (click)="logout()" ><i class="fa fa-sign-out"></i>Cerrar Sesión</button>
+      </div>
+    </div>
+  </div>
+</nav>
+<h2><b>EVENTOS:</b></h2> 
+
+<!-- Campo de búsqueda -->
+<input class="form-control" type="search" placeholder="Buscar.." [(ngModel)]="filtro">
+<!-- Botón para exportar a Excel -->
+<button *ngIf="'Excel' | role: 'Administracion'" class="btn-excel" (click)="exportarExcel()">
+  <img src="./assets/excel.png" width="40" height="45" alt="Exportar a Excel"></button>
+<!-- Enlace para crear un nuevo usuario -->
+<a *ngIf="!isRole('Seguridad')" href="registro-evento" class="btn-add">
+  Agregar
+</a>
+<div class="contenido">
+   <!-- Tabla para mostrar los usuarios -->
+   <div class="table-container">
+    <div class="table-responsive table-responsive-xl">
+      <table class="table table-striped table-bordered" id="eventos">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th *ngIf="!isRole('Residente')">Celular</th>
+            <th *ngIf="!isRole('Residente')">Cédula</th>
+            <th>Evento</th>
+            <th>Dirección Evento</th>
+            <th>Vehículos</th>
+            <th>Personas</th>
+            <th>Tipo</th>
+            <th>Fecha/Hora</th>
+            <th>Duración Evento</th>
+            <th>Observaciones</th>
+            <th *ngIf="!isRole('Residente')">Invitados</th>
+            <th>Estado</th>
+            <th *ngIf="'Acciones' | role: 'Administracion'">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="listado">
+          <tr *ngFor="let row of (filtrar() | paginate: { itemsPerPage: 5, currentPage: p })">
+            <!-- Mostrar solo si no es un evento de tipo 'Hogar' o si el evento 'Hogar' fue creado por el usuario en sesión -->
+            <ng-container *ngIf="!(isRole('Residente') && row.tipo_evento === 'Hogar' && row.id_usuario !== idUsuario)">
+              <td>{{ row.usuario.nombre }} {{ row.usuario.apellidos }}</td>
+              <td *ngIf="!isRole('Residente')">{{ row.residente.celular }}</td>
+              <td *ngIf="!isRole('Residente')">{{ row.residente.cedula }}</td>
+              <td>{{ row.nombre_evento }}</td>
+              <td>{{ row.direccion_evento }}</td>
+              <td>{{ row.cantidad_vehiculos }}</td>
+              <td>{{ row.cantidad_personas }}</td>
+              <td>{{ row.tipo_evento }}</td>
+              <td>{{ row.fecha_hora | date: 'yyyy-MM-dd HH:mm' }}</td>
+              <td>{{ row.duracion_evento }}</td>
+              <td>{{ row.observaciones }}</td>
+              <td *ngIf="!isRole('Residente')" class="file-cell">
+                <a *ngIf="row.listado_evento" [href]="getFileUrl(row.listado_evento)" download="{{ row.listado_evento }}" class="download-link">
+                  Descargar
+                </a>
+                <i class="fas fa-eye" (click)="openInvitadosModal(row.id_evento)"></i>
+                <span *ngIf="!row.listado_evento" class="no-available">
+                  No disponible
+                </span>
+              </td>
+              <td [ngClass]="{
+                'estado-aceptado': row.estado === 'Aceptado',
+                'estado-denegado': row.estado === 'Denegado',
+                'estado-proceso': row.estado === 'En proceso de aceptación'
+               }">
+                {{ row.estado }}
+              </td>
+              <td *ngIf="'Acciones' | role: 'Administracion'">
+                <!-- Botones para cambiar el estado -->
+                <button *ngIf="row.estado !== 'Aceptado'" class="btn-accept" (click)="updateEstado(row.id_evento, 'Aceptado')" title="Aceptar evento">
+                  <i class="fas fa-check"></i>
+                </button>
+                <button *ngIf="row.estado !== 'Denegado'" class="btn-reject" (click)="updateEstado(row.id_evento, 'Denegado')" title="Rechazar evento">
+                  <i class="fas fa-times"></i>
+                </button>
+                <!-- Boton para eliminar -->
+                <button class="btn-trash" (click)="deleteEventos(row.id_evento)">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>      
+       </div>
+    </div>  
+       <!-- Controles de paginación -->
+       <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+</div>
