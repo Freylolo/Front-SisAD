@@ -4,7 +4,6 @@ import { ApiService } from "../api.service";
 import { PLATFORM_ID, Inject } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
 import flatpickr from "flatpickr";
-import "flatpickr/dist/flatpickr.min.css";
 import * as mammoth from "mammoth";
 import { jsPDF } from "jspdf";
 import { QRCodeModule } from "angularx-qrcode";
