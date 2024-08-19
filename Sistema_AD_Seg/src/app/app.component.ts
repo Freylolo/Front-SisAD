@@ -6,13 +6,13 @@ import { isPlatformBrowser } from '@angular/common';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'Sistema_AD_Seg';
 
   private idleTimeout: any;
-  private readonly idleLimit = 1800000; // 30 minutos en milisegundos
+  private readonly idleLimit = 1800000; // 30 minutos en milisegundos para pruebas
 
   constructor(
     private router: Router,
@@ -52,22 +52,25 @@ export class AppComponent {
 
   // Maneja el cierre de sesión por inactividad
   private logout() {
-    this.apiService.logout().subscribe(() => {
-      console.log('Logged out due to inactivity');
-      this.router.navigate(['/login']);
+    console.log('Logging out due to inactivity');
+
+    // Limpia datos del localStorage
+    localStorage.removeItem('username');
+    localStorage.removeItem('role');
+
+    // Llama al endpoint de logout en el backend
+    this.apiService.logout().subscribe({
+      next: () => {
+        console.log('Logged out successfully');
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.error('Error during logout', err);
+        this.router.navigate(['/login']);
+      }
     });
   }
 
-  // Maneja el cierre de sesión al cerrar la pestaña
-  @HostListener('window:beforeunload', ['$event'])
-  unloadNotification($event: any): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.apiService.logout().subscribe(() => {
-        console.log('Logged out on tab close');
-      });
-    }
-  }
-  
   // Método para redirigir al login
   redirectToLogin() {
     this.router.navigate(['/login']);
