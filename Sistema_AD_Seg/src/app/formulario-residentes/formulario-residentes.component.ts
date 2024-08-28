@@ -21,7 +21,7 @@ export class FormularioResidentesComponent {
   usuarios: any[] = [];
   usuariosResidentes: any[] = [];
   nuevoResidente: any = {
-    id_usuario: '',
+    id_usuario: null,
     nombre: "",
     apellido: "",
     cedula: "",
