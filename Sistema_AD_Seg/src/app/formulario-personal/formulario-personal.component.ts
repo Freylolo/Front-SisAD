@@ -17,7 +17,7 @@ export class FormularioPersonalComponent {
   usuarios: any[] = [];
   usuariosPersonal: any[] = []; 
   nuevoPersonal: any = {
-    id_usuario: '', 
+    id_usuario: null, 
     nombre: '',
     apellido: '', 
     cedula: '',
