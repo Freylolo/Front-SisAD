@@ -95,18 +95,21 @@ export class FormularioResidentesComponent {
  * 5. En caso de que el usuario no sea encontrado, se muestra un mensaje de error en la consola.
  */
 
-  seleccionarUsuario(event: Event): void {
-    const target = event.target as HTMLSelectElement;
-    const id_usuario = Number(target.value);  // Convertir el id_usuario a número
-    // Encuentra el usuario seleccionado
-    const usuarioSeleccionado = this.usuariosResidentes.find(usuario => usuario.id_usuario === id_usuario);
-    if (usuarioSeleccionado) {
-      this.nuevoResidente.id_usuario = usuarioSeleccionado.id_usuario;
-      this.nuevoResidente.correo_electronico = usuarioSeleccionado.correo_electronico;
-    } else {
-      console.error('Usuario no encontrado');
-    }
-  }  
+ seleccionarUsuario(event: Event): void {
+  const target = event.target as HTMLSelectElement;
+  const id_usuario = Number(target.value);  // Convertir el id_usuario a número
+  // Encuentra el usuario seleccionado
+  const usuarioSeleccionado = this.usuariosResidentes.find(usuario => usuario.id_usuario === id_usuario);
+  if (usuarioSeleccionado) {
+    this.nuevoResidente.id_usuario = usuarioSeleccionado.id_usuario;
+    this.nuevoResidente.correo_electronico = usuarioSeleccionado.correo_electronico;
+    this.nuevoResidente.nombre = usuarioSeleccionado.nombre; // Asigna el nombre
+    this.nuevoResidente.apellido = usuarioSeleccionado.apellido; // Asigna el apellido
+  } else {
+    console.error('Usuario no encontrado');
+  }
+}
+
 
 /**
  * Nombre de la función: 'checkCedula'
