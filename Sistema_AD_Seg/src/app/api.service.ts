@@ -13,7 +13,7 @@ import { tap } from "rxjs/operators";
 export class ApiService {
 
   // URL base de la API
-  private apiUrl = "https://sistema-camino-real.vercel.app/api";
+  private apiUrl = "https://sistema-camino-real.vercel.app//api";
 
   // Opciones por defecto para las peticiones HTTP
   private httpOptions = {
