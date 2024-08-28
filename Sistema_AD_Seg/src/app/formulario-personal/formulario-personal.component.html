@@ -63,7 +63,7 @@
       <div class="row">
         <div class="form-group col">
           <label for="usuario">Nombres:<span class="text-danger"> :</span></label>
-            <select id="usuario" name="usuario" [(ngModel)]="nuevoPersonal.id_usuario" (change)="seleccionarUsuario($event)" required>
+          <select id="usuario" name="usuario" (change)="seleccionarUsuario($event)" required>
             <option *ngFor="let usuario of usuariosPersonal" [value]="usuario.id_usuario">
               {{ usuario.nombre }} {{ usuario.apellido }}
             </option>
