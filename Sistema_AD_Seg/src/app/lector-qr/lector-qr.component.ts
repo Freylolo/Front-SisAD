@@ -42,19 +42,26 @@ export class LectorQrComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.scanner.start();
-      this.scanner.devices.subscribe((devices: ScannerQRCodeDevice[]) => {
-        this.cameras = devices;
-      });
-      this.scanner.data.subscribe((results: ScannerQRCodeResult[]) => {
-        if (results.length > 0) {
-          this.qrData = results[0].value;
-          console.log('QR Data:', this.qrData); // Verificar el valor del QR escaneado
-          this.parseQRData();
-        }
-      });
+      if (this.scanner) {
+        console.log('Scanner component found:', this.scanner);
+        this.scanner.start();
+        this.scanner.devices.subscribe((devices: ScannerQRCodeDevice[]) => {
+          this.cameras = devices;
+          console.log('Devices:', devices);
+        });
+        this.scanner.data.subscribe((results: ScannerQRCodeResult[]) => {
+          if (results.length > 0) {
+            this.qrData = results[0].value;
+            console.log('QR Data:', this.qrData);
+            this.parseQRData();
+          }
+        });
+      } else {
+        console.error('Scanner component is not initialized.');
+      }
     }
   }
+  
 
 /**
  * Nombre de la función: 'rotateCamera'
