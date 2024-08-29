@@ -42,14 +42,15 @@ export class LectorQrComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
+      console.log('Scanner component:', this.scanner);
       if (this.scanner) {
-        console.log('Scanner component found:', this.scanner);
         this.scanner.start();
         this.scanner.devices.subscribe((devices: ScannerQRCodeDevice[]) => {
-          this.cameras = devices;
           console.log('Devices:', devices);
+          this.cameras = devices;
         });
         this.scanner.data.subscribe((results: ScannerQRCodeResult[]) => {
+          console.log('Results:', results);
           if (results.length > 0) {
             this.qrData = results[0].value;
             console.log('QR Data:', this.qrData);
@@ -60,7 +61,7 @@ export class LectorQrComponent implements AfterViewInit {
         console.error('Scanner component is not initialized.');
       }
     }
-  }
+  }  
   
 
 /**
