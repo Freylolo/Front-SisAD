@@ -364,7 +364,6 @@ input[disabled] {
 }  
 
 h4 {
-  font-style: italic;
   font-family: 'Times New Roman', Times, serif;
   color: white; 
   font-weight: bold; 
@@ -381,7 +380,19 @@ h4 {
   height: 280px; /* Asegúrate de que la altura sea la correcta */
   top: -9999px;
 }
+.footer {
+  text-align: center;  
+  font-size: 10px; 
+  color: #999; 
+  padding: 5px; 
+  border-top: 1px solid #ddd; 
+  margin-top: 20px; 
+  font-family: 'Georgia', serif; 
+}
 
+.footer p { 
+  margin: 0; 
+} 
 
 
 

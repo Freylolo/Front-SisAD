@@ -44,7 +44,7 @@
 <nav class="navbar" id="nav-bar">
   <div class="navbar-center">
     <img src="./assets/logo_caminoreal.png" width="50" height="50">
-    <h4>Camino Real Urbanizacion</h4>
+    <h4>Camino Real Urbanización</h4>
   </div>
   <div class="navbar-right">
     <div class="dropdown">
@@ -68,9 +68,6 @@
               {{ usuario.nombre }} {{ usuario.apellido }}
             </option>
           </select>
-          <div *ngIf="!nuevoPersonal.id_usuario" class="text-danger">
-            Seleccione un usuario válido.
-          </div>
         </div>        
         <div class="form-group col">
           <label for="cedula">Cédula<span class="text-danger"> :</span></label>
@@ -130,5 +127,8 @@
     </form>
   </div>
 </div>
-
+<footer class="footer">
+  <p>El contenido de esta página web está protegido por copyright y es propiedad de Universidad de Guayaquil</p>
+  <p>© Freya López López 2024</p>
+</footer>   
 

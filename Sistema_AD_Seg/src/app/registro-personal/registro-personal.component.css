@@ -235,7 +235,6 @@ ul {
 
   
   h4 {
-    font-style: italic;
     font-family: 'Times New Roman', Times, serif;
     color: white; 
     font-weight: bold; 
@@ -409,3 +408,17 @@ ul {
     margin-left: 7%;
     width: 780px;
   }
+  .footer {
+    text-align: center;  
+    font-size: 10px; 
+    color: #999; 
+    padding: 5px; 
+    border-top: 1px solid #ddd; 
+    margin-top: 20px; 
+    font-family: 'Georgia', serif; 
+  }
+  
+  .footer p { 
+    margin: 0; 
+  } 
+  

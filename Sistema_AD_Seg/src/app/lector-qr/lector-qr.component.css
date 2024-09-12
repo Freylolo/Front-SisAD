@@ -332,12 +332,26 @@ body {
   }  
 
   h4 {
-    font-style: italic;
-    font-family: 'Times New Roman', Times, serif;
     color: white; 
-    font-weight: bold; 
     margin-left: 1%;
     margin-top: 1%;
+  }
+  
+  .h4-3d-effect {
+    font-family: 'Libre Baskerville', serif; 
+    font-size: 2rem; 
+    color: #ffffff; 
+    font-weight: 600; 
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3), 
+                 0 0 5px rgba(0, 0, 0, 0.3),
+                 0 0 10px rgba(0, 0, 0, 0.3); 
+    margin-left: 1%;
+    margin-top: 1%;
+    transition: transform 0.3s ease; 
+  }
+  
+  .h4-3d-effect:hover {
+    transform: translateY(-5px);  
   }
   
   .navbar-center {
@@ -346,12 +360,17 @@ body {
     justify-content: center; 
   }
 
-  h4 {
-    font-style: italic;
-    font-family: 'Times New Roman', Times, serif;
-    color: white; 
-    font-weight: bold; 
-    margin-left: 1%;
-    margin-top: 1%;
+  .footer {
+    text-align: center;  
+    font-size: 10px; 
+    color: #999; 
+    padding: 5px; 
+    border-top: 1px solid #ddd; 
+    margin-top: 20px; 
+    font-family: 'Georgia', serif; 
+  }
+  
+  .footer p {
+    margin: 0; 
   }
   
