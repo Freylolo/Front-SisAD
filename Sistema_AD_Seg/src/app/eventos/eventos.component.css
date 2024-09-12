@@ -1,7 +1,7 @@
 
 
   span{
-    padding-top: 10px; 
+    padding-top: 13px; 
     font-family: Didot, "Didot LT STD", "Hoefler Text", Garamond, "Times New Roman", serif; font-size: 20px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 26.4px;
   }
   .navbar {
@@ -81,12 +81,13 @@
   @media (max-width: 480px) {
     .dropdown-content-lg {
       width: 120%;
-      height: 7vh;
+      height: 5vh;
       font-size: 4px;
     }
     .dropbtn img {
       height: auto;
       width: 15px;
+      align-self: center;
     }
   }
 
@@ -210,12 +211,13 @@ ul {
   
   @media (max-width: 480px) {
     .form-control {
-      max-width: 210px; /* Ajusta a 250px en pantallas pequeñas */
-      margin-right: 0; /* Opcional: eliminar margen derecho en pantallas pequeñas */
+      max-width: 210px; 
+      margin-right: 0; 
     }
 
     .btn-add{
       font-size: 4px;
+      padding: 6px 12px; 
       border-radius: 6px; 
       margin-left: 1%;
     }
@@ -416,7 +418,7 @@ ul {
 
     }
     span{
-      font-size: 12px;
+      font-size: 15px;
     }
   }
   @media (max-width: 480px) {
@@ -430,7 +432,7 @@ ul {
       
     }
     span{
-      font-size: 12px;
+      font-size: 13px;
     }
   }  
 

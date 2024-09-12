@@ -76,17 +76,60 @@ logout() {
   this.router.navigate(['/login']); // Redirige a la página de inicio de sesión
 }
 
-  exportarExcel(): void {
-    console.log("Exportando a Excel...");
-    if (this.residentes.length === 0) {
-      console.warn("No hay datos para exportar");
-      return;
-    }
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.residentes);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Residentes");
-    XLSX.writeFile(wb, "Listado_loadResidentes.xlsx");
+exportarExcel(): void {
+  console.log("Exportando a Excel...");
+  
+  // Si no hay residentes, mostramos advertencia y salimos de la función
+  if (this.residentes.length === 0) {
+    console.warn("No hay datos para exportar");
+    return;
   }
+
+  // Filtramos los datos para excluir la columna de Acciones
+  const residentesFiltrados = this.residentes.map(residente => {
+    return {
+      Placas: residente.placas,
+      Vehiculo: residente.observacionesVehicular,
+      Solar: residente.solar,
+      M2: residente.m2,
+      Perfil: residente.perfil,
+      Nombre: `${residente.usuario.nombre} ${residente.usuario.apellido}`,
+      Sexo: residente.sexo,
+      Cedula: residente.cedula,
+      Celular: residente.celular,
+      Direccion: residente.direccion,
+      Observaciones: residente.observaciones
+    };
+  });
+
+  // Crear la hoja de Excel con los datos filtrados
+  const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(residentesFiltrados);
+
+  // Aplicar estilos a las cabeceras
+  const cabeceras = [
+    'A1', 'B1', 'C1', 'D1', 'E1', 'F1', 'G1', 'H1', 'I1', 'J1', 'K1'
+  ];
+  // Aplicar ajustes de ancho para columnas
+  ws['!cols'] = [
+    { wpx: 100 }, // Placas
+    { wpx: 100 }, // Vehículo
+    { wpx: 80 },  // Solar
+    { wpx: 50 },  // M2
+    { wpx: 100 }, // Perfil
+    { wpx: 150 }, // Nombre
+    { wpx: 60 },  // Sexo
+    { wpx: 120 }, // Cédula
+    { wpx: 120 }, // Celular
+    { wpx: 200 }, // Dirección
+    { wpx: 200 }  // Observaciones
+  ];
+
+  // Crear y exportar el archivo Excel
+  const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Residentes");
+  XLSX.writeFile(wb, "Listado_Residentes_Estilos.xlsx");
+}
+
 
   filtrar() {
     const filtroLower = this.filtro.toLowerCase();

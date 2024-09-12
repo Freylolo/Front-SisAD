@@ -77,3 +77,66 @@
     color: green;
   }
   
+  /* Responsivo */
+@media (max-width: 768px) {
+  .modal-header {
+      padding: 10px; /* Reducir el padding para pantallas medianas */
+  }
+
+  .modal-title {
+      font-size: 1.2rem; /* Reducir el tamaño de la fuente en pantallas medianas */
+  }
+
+  .close {
+      font-size: 1.2rem; /* Reducir el tamaño del botón cerrar */
+  }
+
+  .table th, .table td {
+      padding: 10px; /* Reducir el padding de las celdas */
+      font-size: 14px; /* Reducir el tamaño de la fuente en la tabla */
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-header {
+      padding: 8px;
+  }
+
+  .modal-title {
+      font-size: 1rem;
+  }
+
+  .close {
+      font-size: 1rem;
+  }
+
+  .modal-body {
+      padding: 10px;
+  }
+
+  .table {
+      width: 100%;
+      display: block;
+      overflow-x: auto; /* Permite el desplazamiento horizontal en pantallas pequeñas */
+      white-space: nowrap; /* Evita que el contenido se ajuste en varias líneas */
+  }
+
+  .table th, .table td {
+      padding: 8px;
+      font-size: 12px;
+  }
+
+  .modal-footer {
+      padding: 10px;
+  }
+  
+  /* Ajustar el tamaño del texto de los títulos */
+  h5 {
+      font-size: 1rem;
+  }
+
+  /* Alinear el texto para que quede centrado en celdas pequeñas */
+  .table th, .table td {
+      text-align: center;
+  }
+}

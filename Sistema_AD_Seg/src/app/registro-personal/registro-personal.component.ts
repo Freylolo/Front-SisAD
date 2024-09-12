@@ -63,16 +63,6 @@ logout() {
   this.router.navigate(['/login']); // Redirige a la página de inicio de sesión
 }
 
-  exportarExcel(): void {
-    if (this.personal.length === 0) {
-      console.warn("No hay datos para exportar");
-      return;
-    }
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.personal);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Personal");
-    XLSX.writeFile(wb, "Listado_Personal.xlsx");
-  }
 
 /**
  * Nombre de la función: `exportarExcel`
@@ -84,6 +74,38 @@ logout() {
  * Si hay datos, se convierte el array de objetos `personal` en una hoja de cálculo, 
  * se crea un nuevo libro de trabajo, se añade la hoja al libro y se guarda el archivo como "Listado_Personal.xlsx".
  */
+
+exportarExcel(): void {
+  console.log("Exportando a Excel...");
+  
+  // Si no hay personal, mostramos advertencia y salimos de la función
+  if (this.personal.length === 0) {
+    console.warn("No hay datos para exportar");
+    return;
+  }
+
+  // Filtramos los datos para excluir la columna de Acciones
+  const personalFiltrado = this.personal.map(persona => {
+    return {
+      Nombres: `${persona.usuario.nombre} ${persona.usuario.apellido}`,
+      Sexo: persona.sexo,
+      Cedula: persona.cedula,
+      Perfil: persona.perfil,
+      Celular: persona.celular,
+      Correo: persona.usuario.correo_electronico,
+      Observaciones: persona.observaciones
+      // La columna de Acciones no se incluye porque es solo para la interfaz
+    };
+  });
+
+  // Crear la hoja de Excel con los datos filtrados
+  const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(personalFiltrado);
+  const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Personal");
+
+  // Exportar el archivo de Excel
+  XLSX.writeFile(wb, "Listado_Personal.xlsx");
+}
 
   filtrar() {
     const filtroLower = this.filtro.toLowerCase();

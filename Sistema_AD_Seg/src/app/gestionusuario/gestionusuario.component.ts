@@ -90,17 +90,36 @@ export class GestionusuarioComponent implements OnInit {
  * 4. Exporta el libro de trabajo a un archivo Excel llamado "Informacion_Usuarios.xlsx".
  */
 
-  exportarExcel(): void {
-    console.log("Exportando a Excel...");
-    if (this.usuarios.length === 0) {
-      console.warn("No hay datos para exportar");
-      return;
-    }
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.usuarios);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Usuarios");
-    XLSX.writeFile(wb, "Informacion_Usuarios.xlsx");
+exportarExcel(): void {
+  console.log("Exportando a Excel...");
+  
+  // Si no hay usuarios, mostramos advertencia y salimos de la función
+  if (this.usuarios.length === 0) {
+    console.warn("No hay datos para exportar");
+    return;
   }
+
+  // Filtramos los datos para excluir la contraseña y las acciones
+  const usuariosFiltrados = this.usuarios.map(usuario => {
+    return {
+      Nombres: usuario.nombre,
+      Apellidos: usuario.apellido,
+      Perfil: usuario.perfil,
+      Usuario: usuario.username,
+      Email: usuario.correo_electronico
+      // La columna de contraseña no se incluye por seguridad
+    };
+  });
+
+  // Crear la hoja de Excel con los datos filtrados
+  const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(usuariosFiltrados);
+  const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Usuarios");
+
+  // Exportar el archivo de Excel
+  XLSX.writeFile(wb, "Informacion_Usuarios.xlsx");
+ }
+
 
 /**
  * Nombre de la función: 'editUsuario'

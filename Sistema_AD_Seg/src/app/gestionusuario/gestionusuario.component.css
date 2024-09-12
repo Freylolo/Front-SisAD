@@ -78,12 +78,13 @@ span{
 @media (max-width: 480px) {
   .dropdown-content-lg {
     width: 120%;
-    height: 7vh;
+    height: 5vh;
     font-size: 4px;
   }
   .dropbtn img {
     height: auto;
     width: 15px;
+    align-self: center;
   }
 }
 
@@ -235,6 +236,11 @@ h2{
   span{
     font-size: 12px;
   }
+
+  h2{
+    line-height: 26.4px;
+    font-size: 18px;
+  }
 }  
  
 h4 {
@@ -276,11 +282,17 @@ h4 {
     width: 100%; 
   }
 
-  .btn-add, .btn-excel {
+   .btn-excel {
     padding: 2px 4px; 
     font-size: 6px; 
   }
 
+    .btn-add{
+    padding: 2px 4px; 
+    border-radius: 5px; 
+    height: auto;
+    font-size: 8px;
+  }
 }  
 
 .btn-excel {
@@ -356,16 +368,21 @@ tr:nth-child(even) {
 @media (max-width: 480px) {
   th, td {
     padding: 8px;
-    font-size: 12px;
+    font-size: 10px;
     
   }
   
   th {
-    font-size: 11px;
+    font-size: 10px;
   }
   
   td {
-    font-size: 10px;
+    font-size: 9px;
+  }
+
+  .btn-edit, .btn-trash {
+    padding: 8px 6px; 
+    font-size: 10px; 
   }
 }
 

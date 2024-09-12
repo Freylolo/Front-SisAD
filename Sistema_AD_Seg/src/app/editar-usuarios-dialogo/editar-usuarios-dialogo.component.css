@@ -48,13 +48,13 @@
     border: none;
     padding: 0;
     cursor: pointer;
-    margin-left: 35%;
+    margin-left: 55%;
   
   }
   
   .custom-close-button i {
     color: #ff0000; 
-    font-size: 24px; 
+    font-size: 26px; 
   }
   
   .custom-close-button:focus {

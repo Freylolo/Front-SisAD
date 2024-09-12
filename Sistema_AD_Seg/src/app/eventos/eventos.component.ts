@@ -162,15 +162,41 @@ loadEventos(): void {
  * @returns void
  */
 
-  exportarExcel(): void {
-    if (this.eventos.length === 0) {
-      return;
-    }
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.eventos);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Eventos");
-    XLSX.writeFile(wb, "Listado_Eventos.xlsx");
+exportarExcel(): void {
+  if (this.eventos.length === 0) {
+    return;
   }
+
+  // Preparamos los datos que se exportarán, excluyendo las columnas no deseadas (como IDs)
+  const eventosFiltrados = this.eventos.map(evento => {
+    return {
+      Nombre: `${evento.usuario.nombre} ${evento.usuario.apellidos}`,
+      Celular: !this.isRole('Residente') ? evento.residente.celular : undefined,
+      Cédula: !this.isRole('Residente') ? evento.residente.cedula : undefined,
+      Evento: evento.nombre_evento,
+      Dirección: evento.direccion_evento,
+      Vehículos: evento.cantidad_vehiculos,
+      Personas: evento.cantidad_personas,
+      Tipo: evento.tipo_evento,
+      "Duración Evento": evento.duracion_evento,
+      Observaciones: evento.observaciones,
+      Invitados: !this.isRole('Residente') && evento.listado_evento ? 'Disponible' : 'No disponible',
+      Estado: evento.estado
+    };
+  });
+
+  // Filtra los eventos para eliminar las propiedades `undefined`
+  const eventosFinal = eventosFiltrados.map(evento => {
+    return Object.fromEntries(Object.entries(evento).filter(([_, v]) => v !== undefined));
+  });
+
+  // Crear hoja de Excel y exportar
+  const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(eventosFinal);
+  const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Eventos");
+  XLSX.writeFile(wb, "Listado_Eventos.xlsx");
+}
+
 
 /**
  * Nombre de la función: filtrar
