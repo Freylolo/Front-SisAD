@@ -77,8 +77,6 @@ logout() {
 }
 
 exportarExcel(): void {
-  console.log("Exportando a Excel...");
-  
   // Si no hay residentes, mostramos advertencia y salimos de la función
   if (this.residentes.length === 0) {
     console.warn("No hay datos para exportar");
@@ -214,7 +212,6 @@ exportarExcel(): void {
         console.log("Eliminando Residente con ID:", id);
         this.apiService.deleteResidente(id).subscribe(
           () => {
-            console.log("Residente eliminado con éxito");
             this.loadResidentes(); // Volver a cargar la lista de residentes después de la eliminación
           },
           (error) => {

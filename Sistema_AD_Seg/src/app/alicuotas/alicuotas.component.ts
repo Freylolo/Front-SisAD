@@ -168,7 +168,6 @@ export class AlicuotasComponent {
  */
 
   exportarExcel(): void {
-    console.log("Exportando a Excel...");
     if (this.alicuota.length === 0) {
       console.warn("No hay datos para exportar");
       return;
@@ -278,7 +277,6 @@ export class AlicuotasComponent {
  */
 
   marcarpago(id: number): void {
-    console.log("Marcando alícuota como pagado con ID:", id);
     this.apiService.marcarpagoAlicuitas(id).subscribe(
       () => {
         // Volver a cargar la lista de alícuotas y recalcular el total adeudado

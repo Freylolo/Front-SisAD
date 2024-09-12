@@ -241,10 +241,14 @@ ul {
     cursor: pointer;
     border-radius: 15px; 
     transition-duration: 0.4s;
+    transition: background-color 0.4s, transform 0.3s;  
+
   }
   
   .btn-edit:hover, .btn-trash:hover , .btn-accept:hover , .btn-reject:hover{
     background-color: #8f8d8d;
+    transform: scale(1.1); 
+
   }
   
 
@@ -296,6 +300,7 @@ ul {
     border-spacing: 10px;
     width: 90%; 
     max-width: 2200px; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
   }
   
   th, td {
@@ -318,6 +323,11 @@ ul {
   
   tr:nth-child(even) {
     background-color: #F1F1F1;
+  }
+
+  tr:hover {
+    background-color: #e0e0e0; 
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
   }
   
   @media (max-width: 768px) {

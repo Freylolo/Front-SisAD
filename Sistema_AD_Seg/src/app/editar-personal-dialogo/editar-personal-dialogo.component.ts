@@ -20,7 +20,6 @@ export class EditarPersonalDialogoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('Datos en el modal:', this.personal);
     this.form = this.fb.group({
         nombre: [this.personal.usuario.nombre, Validators.required],
         apellido: [this.personal.usuario.apellido, Validators.required],

@@ -226,8 +226,6 @@ bloquearHoras() {
   const fechaSeleccionada = new Date(this.fechaSeleccionada + "T00:00:00");
   fechaSeleccionada.setHours(0, 0, 0, 0);
 
-  console.log("Tipo de evento:", this.nuevoEvento.tipo_evento); // Depuración
-
   if (this.nuevoEvento.tipo_evento === "Hogar") {
     // Para eventos de tipo 'Hogar', mostrar horas entre 07:00 y 22:00 con intervalos de 10 minutos.
     this.horasDisponibles = this.generarHorasDisponiblesHogar(fechaSeleccionada);
@@ -500,7 +498,6 @@ initializeFlatpickr(): void {
         this.fechaSeleccionada = selectedDates[0]
           ? selectedDates[0].toISOString().slice(0, 10)
           : "";
-        console.log("Fecha seleccionada en flatpickr:", this.fechaSeleccionada);
         this.onFechaChange();
       },
     });
@@ -579,9 +576,6 @@ initializeFlatpickr(): void {
     const unAnoEnElFuturo = new Date(ahora);
     unAnoEnElFuturo.setFullYear(ahora.getFullYear() + 1);
     this.maxFecha = unAnoEnElFuturo.toISOString().slice(0, 10); // Solo la parte de la fecha
-    console.log("Min Fecha:", this.minFecha);
-    console.log("Max Fecha:", this.maxFecha);
-    console.log("Nuevo Evento:", this.nuevoEvento);
   }
 
 /**
@@ -931,9 +925,6 @@ guardar(): void {
     (response) => {
       // Accede al ID del evento en la propiedad correcta
       const eventoId = response.id_evento;
-
-      // Verifica que el ID del evento se haya obtenido correctamente
-      console.log('ID del evento recibido:', eventoId);
   
       // Almacenar los datos de los invitados temporalmente
       this.guardarInvitados(eventoId, this.data.invitados);
@@ -994,8 +985,6 @@ guardar(): void {
 }
 
 guardarInvitados(eventoId: number, invitados: any[]): void {
-  console.log('ID del evento recibido en guardarInvitados:', eventoId);
-
   // Usar datos de fecha y hora desde this.data
   const data = {
     evento_id: eventoId,
@@ -1003,8 +992,6 @@ guardarInvitados(eventoId: number, invitados: any[]): void {
     hora_evento: this.data.horaEvento,
     invitados: invitados
   };
-
-  console.log('Datos a enviar:', data);
 
   this.apiService.guardarInvitados(data).subscribe(
     (response) => {

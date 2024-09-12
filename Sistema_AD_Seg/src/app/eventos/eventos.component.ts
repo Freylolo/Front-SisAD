@@ -47,9 +47,7 @@ export class EventosComponent {
   loadUserId(): void {
     this.apiService.getUserIdByUsername(this.username).subscribe(
       (response: any) => {
-        this.idUsuario = response.id_usuario;
-        console.log("ID Usuario cargado:", this.idUsuario);
-  
+        this.idUsuario = response.id_usuario;  
         // Ahora que tenemos el ID del usuario, cargamos los eventos
         this.loadEventos();
       },
@@ -104,8 +102,6 @@ loadEventos(): void {
             console.log("Evento excluido por tipo 'Hogar' y creador no coincide:", evento);
           }
         } else {
-          // Para otros roles, no aplicar el filtro y mostrar todos los eventos
-          console.log("Evento incluido para rol diferente:", evento);
           // Obtener usuario relacionado
           this.apiService.getUsuario(evento.id_usuario).subscribe((usuario: any) => {
             // Obtener residente relacionado
@@ -329,7 +325,6 @@ exportarExcel(): void {
   }
 
   openInvitadosModal(eventoId: number): void {
-    console.log('Evento ID antes de llamar a la API:', eventoId); 
     this.apiService.getInvitadosByEvento(eventoId).subscribe(
       (data: any) => {
         const modalRef = this.modalService.open(InvitadosModalComponent, {

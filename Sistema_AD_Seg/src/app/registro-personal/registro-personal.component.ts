@@ -75,9 +75,7 @@ logout() {
  * se crea un nuevo libro de trabajo, se añade la hoja al libro y se guarda el archivo como "Listado_Personal.xlsx".
  */
 
-exportarExcel(): void {
-  console.log("Exportando a Excel...");
-  
+exportarExcel(): void {  
   // Si no hay personal, mostramos advertencia y salimos de la función
   if (this.personal.length === 0) {
     console.warn("No hay datos para exportar");

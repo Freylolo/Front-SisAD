@@ -53,7 +53,6 @@ export class LectorQrComponent implements AfterViewInit {
           console.log('Results:', results);
           if (results.length > 0) {
             this.qrData = results[0].value;
-            console.log('QR Data:', this.qrData);
             this.parseQRData();
           }
         });
@@ -173,7 +172,6 @@ export class LectorQrComponent implements AfterViewInit {
     };
     this.apiService.guardarControlAcceso(controlAccesoData).subscribe(
       response => {
-        console.log('Datos guardados exitosamente:', response);
         this.router.navigate(['/registro-control']); // Redirigir a otra página si es necesario
       },
       error => {

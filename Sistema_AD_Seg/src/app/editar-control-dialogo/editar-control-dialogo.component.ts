@@ -102,8 +102,6 @@ export class EditarControlDialogoComponent implements OnInit {
     const selectedUser = this.usuariosSeguridad.find((usuario: any) => usuario.username === selectedUsername);
     if (selectedUser) {
       this.form.patchValue({ username: selectedUser.username });
-      console.log('Usuario encontrado:', selectedUser);
-      console.log('Username asignado:', this.form.get('username')?.value);
     } else {
       this.form.patchValue({ username: '' });
       console.warn('Usuario no encontrado para el username:', selectedUsername);

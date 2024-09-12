@@ -41,7 +41,6 @@ export class FormularioControlComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       this.username = localStorage.getItem('username') || 'Invitado';
     }
-    console.log('Iniciando carga de usuarios');
     this.cargarUsuarios();
   }
 
@@ -61,7 +60,6 @@ export class FormularioControlComponent implements OnInit {
   cargarUsuarios(): void {
     this.apiService.getUsuarios().subscribe(
       (response) => {
-        console.log('Usuarios obtenidos:', response);
         this.usuarios = response; // Asume que la respuesta es un array de usuarios
         this.filtrarUsuariosSeguridad();
       },

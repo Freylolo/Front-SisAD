@@ -44,7 +44,6 @@ export class EditarUsuariosDialogoComponent implements OnInit {
 
   save(): void {
     if (this.form.valid) {
-      console.log('Datos a enviar:', this.form.value);
       this.modalRef.close(this.form.value);
     }
   }

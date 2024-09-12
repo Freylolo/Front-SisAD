@@ -203,7 +203,6 @@ export class RegistroVisitantesComponent implements AfterViewInit {
       this.validationErrors.cedula = ["La cédula es incorrecta."];
     } else {
       this.validationErrors.cedula = [];
-      console.log('La cédula es correcta');
     }
   }
 }

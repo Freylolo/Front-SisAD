@@ -14,7 +14,6 @@ export class InvitadosModalComponent  implements OnInit {
 
   ngOnInit(): void {
     if (this.data && this.data.length > 0) {
-      console.log('Datos recibidos en el modal:', this.data);
     } else {
       console.warn('No se han recibido datos en el modal');
     }
