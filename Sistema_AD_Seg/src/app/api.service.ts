@@ -15,6 +15,7 @@ export class ApiService {
   // URL base de la API
   private apiUrl = "https://back-sistemaad-production.up.railway.app/api";
 
+
   // Opciones por defecto para las peticiones HTTP
   private httpOptions = {
     headers: new HttpHeaders({
@@ -439,4 +440,9 @@ export class ApiService {
   guardarInvitados(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/invitados`, data);
   }
+
+  getAlicuotaPorMes(id_residente: number, mes: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/alicuotas/verificar/${id_residente}/${mes}`);
+  }
+  
 }

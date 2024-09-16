@@ -70,35 +70,60 @@ export class RegistroAlicuotasComponent {
   }
 
   guardar(): void {
-    this.apiService.createAlicuota(this.nuevoAlicuota).subscribe(
-        (response) => {
-            Swal.fire({
+    // Verificar si ya existe una alícuota para el mes seleccionado
+    this.apiService.getAlicuotaPorMes(this.nuevoAlicuota.id_residente, this.nuevoAlicuota.mes).subscribe(
+      (existe: boolean) => {
+        if (existe) {
+          Swal.fire({
+            title: 'Advertencia',
+            text: 'Ya existe una alícuota registrada para este mes.',
+            icon: 'warning',
+            confirmButtonText: 'Aceptar'
+          });
+        } else {
+          // Si no existe, procedemos a crear la nueva alícuota
+          this.apiService.createAlicuota(this.nuevoAlicuota).subscribe(
+            (response) => {
+              Swal.fire({
                 title: 'Éxito',
                 text: 'La alícuota ha sido creada correctamente.',
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
-            }).then(() => {
+              }).then(() => {
                 this.router.navigate(['alicuotas']);
-            });
-        },
-        (error) => {
-            console.error('Error al crear Alicuota:', error);
-            Swal.fire({
+              });
+            },
+            (error) => {
+              console.error('Error al crear Alicuota:', error);
+              Swal.fire({
                 title: 'Error',
                 text: error.status === 422
-                    ? 'Por favor, corrija los errores en el formulario.'
-                    : 'Ocurrió un error inesperado. Por favor, inténtelo de nuevo más tarde.',
+                  ? 'Por favor, corrija los errores en el formulario.'
+                  : 'Ocurrió un error inesperado. Por favor, inténtelo de nuevo más tarde.',
                 icon: 'error',
                 confirmButtonText: 'Aceptar'
-            });
-            if (error.status === 422) {
+              });
+              if (error.status === 422) {
                 this.validationErrors = error.error.errors;
-            } else {
+              } else {
                 this.validationErrors = { general: 'Ocurrió un error inesperado. Por favor, inténtelo de nuevo más tarde.' };
+              }
             }
+          );
         }
+      },
+      (error) => {
+        console.error('Error al verificar alícuota:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Ocurrió un error al verificar la existencia de la alícuota. Por favor, inténtelo de nuevo más tarde.',
+          icon: 'error',
+          confirmButtonText: 'Aceptar'
+        });
+      }
     );
-}
+  }
+  
 
 /**
  * Nombre de la función: `guardar`
