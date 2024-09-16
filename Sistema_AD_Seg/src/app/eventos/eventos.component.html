@@ -106,9 +106,6 @@
               <td>{{ row.duracion_evento }}</td>
               <td>{{ row.observaciones }}</td>
               <td *ngIf="!isRole('Residente')" class="file-cell">
-                <a *ngIf="row.listado_evento" [href]="getFileUrl(row.listado_evento)" download="{{ row.listado_evento }}" class="download-link">
-                  Descargar
-                </a>
                 <i class="fas fa-eye" (click)="openInvitadosModal(row.id_evento)"></i>
                 <span *ngIf="!row.listado_evento" class="no-available">
                   No disponible
