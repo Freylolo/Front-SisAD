@@ -934,6 +934,9 @@ guardar(): void {
           text: 'El evento ha sido creado exitosamente, pero no se han añadido invitados.',
           icon: 'warning',
           confirmButtonText: 'Aceptar'
+        }).then(() => {
+          // Redirigir a la página de eventos
+          this.router.navigate(['/eventos']);
         });
       }
 
@@ -956,11 +959,15 @@ guardar(): void {
         })
         .catch((error) => {
           console.error("Error al generar los PDFs:", error);
+          // No mostrar alerta de error, solo continuar
+          console.log('Los PDFs no se generaron correctamente, pero el evento se creó.');
           Swal.fire({
-            title: 'Error',
-            text: 'Se produjo un error al generar los PDFs. Por favor, inténtelo de nuevo más tarde.',
-            icon: 'error',
+            title: 'Evento Creado',
+            text: 'El evento ha sido creado exitosamente, pero sin generar PDFs.',
+            icon: 'warning',
             confirmButtonText: 'Aceptar'
+          }).then(() => {
+            this.router.navigate(['/eventos']);
           });
         });
     },
@@ -989,6 +996,7 @@ guardar(): void {
     }
   );
 }
+
 
 guardarInvitados(eventoId: number, invitados: any[]): void {
   const data = {
