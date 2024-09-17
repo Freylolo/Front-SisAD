@@ -920,25 +920,31 @@ guardar(): void {
       formData.append(key, this.nuevoEvento[key]);
     }
   });
-  
+
   this.apiService.createEvento(formData).subscribe(
     (response) => {
-      // Accede al ID del evento en la propiedad correcta
       const eventoId = response.id_evento;
-  
-      // Almacenar los datos de los invitados temporalmente
-      this.guardarInvitados(eventoId, this.data.invitados);
 
-      // Generar los códigos QR después de guardar el evento
+      // Verificar si hay invitados antes de intentar guardarlos
+      if (this.data.invitados && this.data.invitados.length > 0) {
+        this.guardarInvitados(eventoId, this.data.invitados);
+      } else {
+        Swal.fire({
+          title: 'Advertencia',
+          text: 'El evento ha sido creado exitosamente, pero no se han añadido invitados.',
+          icon: 'warning',
+          confirmButtonText: 'Aceptar'
+        });
+      }
+
+      // Generar los códigos QR y PDFs después de guardar el evento
       this.generatePDFs()
         .then((pdfs) => {
-          // Descargar los PDFs después de generarlos
           pdfs.forEach(({ pdf, nombreArchivo }) => {
             pdf.save(nombreArchivo);
             console.log(`PDF guardado como ${nombreArchivo}`);
           });
 
-          // Mostrar alerta de éxito y redirigir a /eventos después de generar y descargar los PDFs
           Swal.fire({
             title: 'Evento Creado',
             text: 'El evento ha sido creado exitosamente y los PDFs se han guardado.',
@@ -985,7 +991,6 @@ guardar(): void {
 }
 
 guardarInvitados(eventoId: number, invitados: any[]): void {
-  // Usar datos de fecha y hora desde this.data
   const data = {
     evento_id: eventoId,
     fecha_evento: this.data.fechaEvento,
@@ -1014,8 +1019,6 @@ guardarInvitados(eventoId: number, invitados: any[]): void {
     }
   );
 }
-
-
 
   logout() {
     this.loggedIn = false;
