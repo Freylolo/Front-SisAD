@@ -963,7 +963,7 @@ guardar(): void {
           console.log('Los PDFs no se generaron correctamente, pero el evento se creó.');
           Swal.fire({
             title: 'Evento Creado',
-            text: 'El evento ha sido creado exitosamente, pero sin generar PDFs.',
+            text: 'El evento ha sido creado exitosamente, pero no se han añadido invitados.',
             icon: 'warning',
             confirmButtonText: 'Aceptar'
           }).then(() => {
