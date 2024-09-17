@@ -93,7 +93,7 @@
         <tbody id="listado">
           <tr *ngFor="let row of (filtrar() | paginate: { itemsPerPage: 5, currentPage: p })">
             <!-- Mostrar solo si no es un evento de tipo 'Hogar' o si el evento 'Hogar' fue creado por el usuario en sesión -->
-            <ng-container *ngIf="!(isRole('Residente') && row.tipo_evento === 'Hogar' && row.id_usuario !== idUsuario) && row.estado !== 'Denegado'">
+            <ng-container *ngIf="!(isRole('Residente') && row.tipo_evento === 'Hogar' && row.id_usuario !== idUsuario) && (isRole('Residente') ? row.estado !== 'Denegado' : true)">
               <td>{{ row.usuario.nombre }} {{ row.usuario.apellido }}</td>
               <td *ngIf="!isRole('Residente')">{{ row.residente.celular }}</td>
               <td *ngIf="!isRole('Residente')">{{ row.residente.cedula }}</td>
