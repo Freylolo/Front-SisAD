@@ -221,6 +221,9 @@ ul {
       border-radius: 6px; 
       margin-left: 1%;
     }
+    h2{
+      font-size: 18px;
+    }
   }  
 
   input {
@@ -251,7 +254,6 @@ ul {
 
   }
   
-
   .btn-add {
     display: inline-block;
     background-color: #007bff; 
@@ -499,3 +501,25 @@ ul {
 .footer p { 
   margin: 0; 
 } 
+
+@media (max-width: 480px) {
+  span {
+    font-size: 12px;
+    padding-top: 8px;
+  }
+}
+@media (max-width: 480px) {
+  .btn-add, .btn-edit, .btn-trash, .btn-accept , .btn-reject {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+@media (max-width: 768px) {
+  table {
+    width: 100%;
+  }
+  th, td {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
